@@ -1,3 +1,7 @@
-### 50.003 ESC 
+## 50.003 ESC 
 
-##### Capstone Space Allocation 
+#### Capstone Space Allocation 
+
+###### To Start:
+npm install
+npm start
