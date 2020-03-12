@@ -19,6 +19,7 @@ const getTableData = (req, res, db) => {
         res.json(item)
       })
       .catch(err => res.status(400).json({dbError: 'db error'}))
+
   }
   
   const putTableData = (req, res, db) => {
