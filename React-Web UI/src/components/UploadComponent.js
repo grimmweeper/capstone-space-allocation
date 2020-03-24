@@ -35,14 +35,6 @@ class Upload extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            // body: JSON.stringify({
-            //     first: 'lala',
-            //     last: 'land',
-            //     email: 'hello me',
-            //     phone: 75844,
-            //     location:"here",
-            //     hobby:"nothing :)"
-            // })
             body: JSON.stringify(this.state.data)
         })
     }
