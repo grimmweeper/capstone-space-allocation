@@ -47,13 +47,13 @@ class Header extends Component {
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
                             <NavItem>
-                                <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
+                                <NavLink className="home"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link"  to='/floorplan'><span className="fa fa-home fa-lg"></span> Floorplan</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link"  to='/upload'><span className="fa fa-home fa-lg"></span> Upload CSV</NavLink>
+                                <NavLink className="upload"  to='/upload'><span className="fa fa-home fa-lg"></span> Upload CSV</NavLink>
                             </NavItem>
                             </Nav>
                             <Nav className="ml-auto" navbar>
