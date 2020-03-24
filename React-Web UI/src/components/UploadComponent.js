@@ -28,7 +28,7 @@ class Upload extends Component {
 
     postCSV = () => {
 
-        console.log(this.state.data[0]);
+        console.log(this.state.data);
         fetch('http://localhost:3001/crud', {
             method: 'POST',
             headers: {
@@ -43,7 +43,7 @@ class Upload extends Component {
             //     location:"here",
             //     hobby:"nothing :)"
             // })
-            body: JSON.stringify(this.state.data[0])
+            body: JSON.stringify(this.state.data)
         })
     }
 
