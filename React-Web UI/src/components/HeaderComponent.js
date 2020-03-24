@@ -55,6 +55,9 @@ class Header extends Component {
                             <NavItem>
                                 <NavLink id = "uploadNav" className="nav-link"  to='/upload'><span className="fa fa-home fa-lg"></span> Upload CSV</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink className="nav-link"  to='/retrieve'><span className="fa fa-home fa-lg"></span> Retrieve</NavLink>
+                            </NavItem>
                             </Nav>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>

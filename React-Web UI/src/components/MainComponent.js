@@ -4,6 +4,7 @@ import Home from './HomeComponent';
 import Signup from './SignupComponent';
 import Floorplan from './FloorplanComponent';
 import Upload from './UploadComponent';
+import Retrieve from './RetrieveComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -40,6 +41,7 @@ class Main extends Component {
                <Route exact path='/signup' component={Signup} />} />
                <Route exact path='/floorplan' component={Floorplan} />} />
                <Route exact path='/upload' component={Upload} />} />
+               <Route exact path='/retrieve' component={Retrieve} />} />
               <Redirect to="/home" />
           </Switch>
         </div>

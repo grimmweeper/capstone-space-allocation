@@ -50,7 +50,7 @@ class Upload extends Component {
                 />
                 <Row className="form-group">
                     <Col md={{size:10}}>
-                        <Button type="submit" color="primary" onClick = { this.postCSV }>
+                        <Button id = "uploadBtn" type="submit" color="primary" onClick = { this.postCSV }>
                         Upload
                         </Button>
                     </Col>
