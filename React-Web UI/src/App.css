@@ -35,6 +35,11 @@
   color: #666;
 }
 
+.webmap{
+  margin-top: 10px;
+  height: 600px;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Helvetica", sans-serif;
