@@ -11,8 +11,21 @@ class Retrieve extends Component {
 
     getDB = () => {
         fetch('http://localhost:3001/crud')
-        .then(results => {
-            var data = results.json();
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+
+        })
+        .then(response => {
+            var data = response.json();
             this.setState({data:data});
             console.log("state", this.state.data);
         })

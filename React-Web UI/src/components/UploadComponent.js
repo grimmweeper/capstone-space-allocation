@@ -36,6 +36,16 @@ class Upload extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state.data)
+        }).then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('POST SUCCESS');
+            }
+            else {
+                //error alert message
+                alert('POST FAILED');
+            }
+
         })
     }
 

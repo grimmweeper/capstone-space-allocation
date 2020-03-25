@@ -7,6 +7,11 @@ import Upload from './UploadComponent';
 import Retrieve from './RetrieveComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
+
+const mapDispatchToProps = dispatch => ({
+  resetSignupForm: () => { dispatch(actions.reset('signup'))}
+});
 
 const mapStateToProps = state => {
   return {
@@ -38,6 +43,7 @@ class Main extends Component {
               {/* <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
               <Route path='/menu/:dishId' component={DishWithId} />
               <Route exact path='/contactus' component={Contact} />} /> */}
+               {/* <Route exact path='/signup' component={() => <Signup resetSignupForm={this.props.resetSignupForm} />} /> */}
                <Route exact path='/signup' component={Signup} />} />
                <Route exact path='/floorplan' component={Floorplan} />} />
                <Route exact path='/upload' component={Upload} />} />
@@ -50,4 +56,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
