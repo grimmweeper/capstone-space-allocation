@@ -22,7 +22,20 @@ var polygon =[
     [1.34090,103.96305],
 ]
 
-
+var polygon1 = [
+    [
+        [1.34095,103.96305],
+        [1.34095,103.96300],
+        [1.34090,103.96300],
+        [1.34090,103.96305],
+    ],
+    [
+        [1.34105,103.96305],
+        [1.34105,103.96300],
+        [1.34100,103.96300],
+        [1.34100,103.96305],
+    ],
+]
 
 
 class Floorplan extends Component {
@@ -39,7 +52,6 @@ class Floorplan extends Component {
             maxZoom:22,
             noWrap: true,
             continuousWorld:false,
-
         }).addTo(this.map);
 
         //marker
@@ -50,55 +62,21 @@ class Floorplan extends Component {
         marker.bindPopup('<b>here is popup (1,1)</b>')
 
         // Circle Movement
-        var circle = L.circle([1.34090,103.96300], 10).addTo(map);
-
-        circle.on({
-            mousedown: function () {
-              map.on('mousemove',function (e) {
-                circle.setLatLng(e.latlng);
-              });
-            }
-        }); 
-
-        map.on('mouseup',function(e){
-            map.removeEventListener('mousemove');
-        })
+        var circle = L.circle([1.34090,103.96300], {
+            radius: 10,
+            draggable: true,
+        }).addTo(map);
 
         //polygon Movement
-
-        var poly = L.polygon(polygon,{
+        var poly = new L.Polygon(polygon,{
+            draggable: 'true',
             color: 'red',
         }).addTo(this.map);
 
-        poly.on({
-            mousedown: function () {
-              poly.on('mousemove', function (e) {
 
-                var point0 = L.point([e.latlng.lat,e.latlng.lng]);
-                point0 = point0.add([-0.000025,0.000025]);
-                var point1 = L.point([e.latlng.lat,e.latlng.lng]);
-                point1 = point1.add([0.000025,0.000025]);
-                var point2 = L.point([e.latlng.lat,e.latlng.lng]);
-                point2 = point2.add([0.000025,-0.000025]);
-                var point3 = L.point([e.latlng.lat,e.latlng.lng]);
-                point3 = point3.add([-0.000025,-0.000025]);
-                
-                    
-                var newpoly = [
-                    [point0.x,point0.y],
-                    [point1.x,point1.y],
-                    [point2.x,point2.y],
-                    [point3.x,point3.y],
-                ]
-
-                poly.setLatLngs(newpoly);
-                
-              });
-            }
-        });
-
-        poly.on('mouseup',function(e){
-           poly.removeEventListener('mousemove');
+        map.on('click',function(e){
+            console.log('click',e);
+           //map.removeEventListener('mousemove');
         })
 
 
@@ -107,6 +85,7 @@ class Floorplan extends Component {
     render(){
         return <div className='webmap'></div>
     }
+
 }
 
     
