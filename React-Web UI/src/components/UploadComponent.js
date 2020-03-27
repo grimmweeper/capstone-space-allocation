@@ -35,15 +35,17 @@ class Upload extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            // body: JSON.stringify({
-            //     first: 'lala',
-            //     last: 'land',
-            //     email: 'hello me',
-            //     phone: 75844,
-            //     location:"here",
-            //     hobby:"nothing :)"
-            // })
             body: JSON.stringify(this.state.data)
+        }).then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('POST SUCCESS');
+            }
+            else {
+                //error alert message
+                alert('POST FAILED');
+            }
+
         })
     }
 
@@ -58,7 +60,7 @@ class Upload extends Component {
                 />
                 <Row className="form-group">
                     <Col md={{size:10}}>
-                        <Button type="submit" color="primary" onClick = { this.postCSV }>
+                        <Button id = "uploadBtn" type="submit" color="primary" onClick = { this.postCSV }>
                         Upload
                         </Button>
                     </Col>

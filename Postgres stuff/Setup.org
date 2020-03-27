@@ -1,0 +1,35 @@
+* QGIS Notes
+** Data prep
+   - Freehand raster georeferencer to align the tiffs to make them geotiffs
+     - 1:290 for L1
+     - 1:193 for L2
+   - Shape tools to make circles/pie wedges
+   - mmqgis for hexagon layer
+     - create grid layer hexagon, Y spacing 0.1
+     - Sort to ensure elements in the right order
+   - Open attribute table and added a, b, project_no with field calculator
+     - Cause hexagon layer 67 by 75
+     - project_no 
+       - just -1
+     - a 
+       - ceil(@row_number/67)-1
+     - b
+       - ((@row_number-1)%67)
+
+** Data export
+  - use export button to 4326
+    - cause changing the CRS in any other way will rellocate the coordinates
+
+* Postgres setup
+-- Add postgis extension for even more spatially queries
+psql -d postgres -c "CREATE EXTENSION postgis;"
+
+-- Add Schema for better organisation of tables
+psql -d postgres -c "CREATE SCHEMA gis;"
+
+-- Use shp2pgsql to upload shapefiles to postgres
+shp2pgsql -s 4326 -I 'CCL1.shp' gis.CCL1 | psql -d postgres -U postgres
+
+shp2pgsql -s 4326 -I 'CCL1_pits.shp' gis.CCL1_pits | psql -d postgres -U postgres
+
+shp2pgsql -s 4326 -I '1m_hexagons_L1.shp' gis.hexagons_L1_1m | psql -d postgres -U postgres
