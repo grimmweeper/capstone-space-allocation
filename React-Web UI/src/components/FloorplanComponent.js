@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 var myIcon = L.icon({
     iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon-2x.png',
     iconSize: [25, 41],
-    iconAnchor: [22, 94],
+    iconAnchor: [12.5, 40],
     popupAnchor: [-10, -90],
 
 })
