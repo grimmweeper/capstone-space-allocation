@@ -235,7 +235,7 @@ class Signup extends Component {
                    <div className="col-12 col-md-9">
                     <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor="Username" md={2}>First Name</Label>
+                                <Label htmlFor="Username" md={2}>Username</Label>
                                 <Col md={10}>
                                     <Control.text model=".username" id="username" name="username"
                                         placeholder="Username"
@@ -345,14 +345,15 @@ class Signup extends Component {
                                      />
                                 </Col>
                             </Row>
-                        </LocalForm>
-                        <Row className="form-group">
+                            <Row className="form-group">
                                 <Col md={{size:10, offset: 2}}>
-                                    <Button type="submit" color="primary">
+                                    <Button  id = 'submitBtn' type="submit" color="primary">
                                     Create Account
                                     </Button>
                                 </Col>
                             </Row>
+                        </LocalForm>
+
                     </div>
                </div>
 
