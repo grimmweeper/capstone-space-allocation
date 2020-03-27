@@ -1,0 +1,96 @@
+* Filter Hexagon grid to only those in area
+SELECT gis.hexagons_l1_1m.*
+-- filter hexagons contained by ccl1
+FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
+ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+-- filter hexagons out hexagon that intersects ccl1_pits
+LEFT JOIN gis.ccl1_pits
+ON ST_Intersects(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom)
+WHERE gis.ccl1_pits.gid IS NULL
+
+* NOT DONE : Return T/F based on contains 
+SELECT *
+FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
+ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+RIGHT JOIN gis.ccl1_pits
+ON ST_Contains(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom)
+
+* Clear all project_no back to -1
+UPDATE gis.hexagons_l1_1m SET project_no = -1
+
+* Update selected column
+UPDATE gis.hexagons_l1_1m SET project_no = 1 WHERE a = 0 AND b = 0
+
+* SELECT all
+SELECT * FROM gis.hexagons_l1_1m ORDER by gid
+
+
+* SELECT stuff touching the point
+SELECT gis.hexagons_l1_1m.geom
+-- filter hexagons contained by ccl1
+FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
+ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+AND (ST_Intersects(
+ST_MPolyFromText('MULTIPOLYGON(((
+  103.963066660790901 1.340752667639772, 
+  103.963069254941715 1.34075718931442 , 
+  103.963074442767294 1.340757189037779, 
+  103.96307703644203  1.340752667086492, 
+  103.963074442291202 1.340748145411852, 
+  103.963069254465651 1.340748145688492, 
+  103.963066660790901 1.340752667639772  )))', 4326),
+	gis.hexagons_l1_1m.geom))
+
+-- filter hexagons out hexagon that intersects ccl1_pits
+LEFT JOIN gis.ccl1_pits
+ON (ST_Intersects(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom))
+WHERE gis.ccl1_pits.gid IS NULL
+
+** Select touching point test
+ SELECT gis.hexagons_l1_1m.geom
+ -- filter hexagons contained by ccl1
+ FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
+ ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+ AND (ST_Intersects(
+ ST_GeomFromText('POINT(103.9629548 1.34095539)',4326),
+	 gis.hexagons_l1_1m.geom))
+
+ -- filter hexagons out hexagon that intersects ccl1_pits
+ -- this filters out the boundaries
+ LEFT JOIN gis.ccl1_pits
+ ON (ST_Intersects(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom))
+ WHERE gis.ccl1_pits.gid IS NULL
+
+
+* SELECT (GEOMFROM TEXT)
+** Mutlipolygon (hexagon?)
+SELECT ST_MPolyFromText('MULTIPOLYGON(((
+  103.963066660790901 1.340752667639772, 
+  103.963069254941715 1.34075718931442 , 
+  103.963074442767294 1.340757189037779, 
+  103.96307703644203  1.340752667086492, 
+  103.963074442291202 1.340748145411852, 
+  103.963069254465651 1.340748145688492, 
+  103.963066660790901 1.340752667639772  )))', 4326);
+** Point
+SELECT ST_GeomFromText('POINT( 103.963133 1.340669)',4326);
+** Point audi stairs
+SELECT ST_GeomFromText('POINT(103.9629548 1.34095539)',4326);
+
+* UPDATE Based on select 
+UPDATE gis.hexagons_l1_1m
+SET project_no = 1
+FROM(SELECT gis.hexagons_l1_1m.geom
+-- filter hexagons contained by ccl1
+FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
+ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+AND (ST_Intersects(
+ST_MPolyFromText('MULTIPOLYGON(((
+  103.963066660790901 1.340752667639772, 
+  103.963069254941715 1.34075718931442 , 
+  103.963074442767294 1.340757189037779, 
+  103.96307703644203  1.340752667086492, 
+  103.963074442291202 1.340748145411852, 
+  103.963069254465651 1.340748145688492, 
+  103.963066660790901 1.340752667639772  )))', 4326),
+	gis.hexagons_l1_1m.geom))) as foo
