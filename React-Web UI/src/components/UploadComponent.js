@@ -28,8 +28,8 @@ class Upload extends Component {
 
     postCSV = () => {
 
-        console.log(this.state.data);
-        fetch('http://localhost:3001/crud', {
+        console.log(JSON.stringify(this.state.data));
+        fetch('http://localhost:3001/post', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
