@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import L from 'leaflet';
 //import {Map,Popup, Marker, TileLayer,Polygon} from 'react-leaflet';
 import ReactDOM from 'react-dom';
+import { Button } from 'reactstrap';
 
 
 var myIcon = L.icon({
@@ -13,37 +14,36 @@ var myIcon = L.icon({
 
 })
 
-const mymarker = [1.34095,103.96305]
+//const mymarker = [1.34095,103.96305]
 
-var polygon =[
-    [1.34095,103.96305],
-    [1.34095,103.96300],
-    [1.34090,103.96300],
-    [1.34090,103.96305],
-]
-
-var polygon1 = [
+var data = [
     [
-        [1.34095,103.96305],
-        [1.34095,103.96300],
-        [1.34090,103.96300],
-        [1.34090,103.96305],
+        [
+            [1.34095,103.96305],
+            [1.34095,103.96300],
+            [1.34090,103.96300],
+            [1.34090,103.96305],
+        ],
+        'This is polygon 1',
     ],
     [
-        [1.34105,103.96305],
-        [1.34105,103.96300],
-        [1.34100,103.96300],
-        [1.34100,103.96305],
+        [
+            [1.34105,103.96305],
+            [1.34105,103.96300],
+            [1.34100,103.96300],
+            [1.34100,103.96305],
+        ],
+        'This is polygon 2',
     ],
-]
+];
 
 
 class Floorplan extends Component {
     
     componentDidMount(){
         var map = this.map = L.map(ReactDOM.findDOMNode(this),{
-            center: [1.34090,103.96300],
-            zoom: 19,
+            center: [1.34090,103.96315],
+            zoom: 20,
             zoomControl: false,
         });
 
@@ -54,36 +54,45 @@ class Floorplan extends Component {
             continuousWorld:false,
         }).addTo(this.map);
 
-        //marker
+/*        //marker
         var marker = L.marker(mymarker,{
             icon: myIcon,
             draggable: true
         }).addTo(this.map)
         marker.bindPopup('<b>here is popup (1,1)</b>')
+*/
 
-        // Circle Movement
+        // Circle
         var circle = L.circle([1.34090,103.96300], {
             radius: 10,
             draggable: true,
         }).addTo(map);
 
-        //polygon Movement
-        var poly = new L.Polygon(polygon,{
-            draggable: 'true',
-            color: 'red',
-        }).addTo(this.map);
+        //polygon
+        for (var i =0; i < data.length;i++){
+            var poly = new L.Polygon(data[i][0],{
+                draggable: 'true',
+                color: 'red',
+            })
+            .bindPopup(data[i][1])
+            .addTo(this.map);
+        }
 
 
         map.on('click',function(e){
             console.log('click',e);
-           //map.removeEventListener('mousemove');
         })
 
 
     }
 
     render(){
-        return <div className='webmap'></div>
+        return (
+            <div className = 'webmap'>
+            </div>
+
+
+        )
     }
 
 }
