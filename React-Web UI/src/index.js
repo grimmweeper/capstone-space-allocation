@@ -7,10 +7,6 @@ import * as serviceWorker from './serviceWorker';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-path-drag';
 
-//weepz
-// setup fake backend
-import { configureFakeBackend } from './helper/fake-backend';
-configureFakeBackend(); 
 
 ReactDOM.render(<App />, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
