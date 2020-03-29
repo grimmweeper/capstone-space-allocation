@@ -10,7 +10,7 @@ export const userActions = {
     getAll,
     delete: _delete
 };
-
+//weepz (to replace with proper register/login authentication)
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
