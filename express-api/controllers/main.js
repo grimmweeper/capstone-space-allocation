@@ -79,10 +79,49 @@ const getTableData = (req, res, db) => {
       })
       .catch(err => res.status(400).json({dbError: 'db error'}))
   }
-  
+
+  /*
+  //////////////////////////////////////////
+  Users registrations & Logins
+  //////////////////////////////////////////
+  */
+
+ const registerUserData = (req, res, db) => {
+  // Register user
+    const { username, password, email, type } = req.body
+    const date_added = new Date()
+    db('usertable').insert({ username, password, email, type, date_added })
+    .returning('*')
+    .then(item => {
+      res.json(item)
+    })
+    .catch(err => res.status(400).json({dbError: 'db error'}))
+  }
+
+  const getUserData = (req, res, db) => {
+    const { username, password } = req.body
+
+    db('usertable').where({
+      username: username ,
+      password: password 
+    }).select('type')
+    .then(items => {
+      if(items.length){
+        res.json(items)
+      } else {
+        res.status(400).json({dbError: 'No data found'})
+      }
+    })
+    .catch(err => res.status(400).json({dbError: 'db error'}))
+
+  }
+
+
   module.exports = {
     getTableData,
     postTableData,
     putTableData,
-    deleteTableData
+    deleteTableData,
+    registerUserData,
+    getUserData
   }

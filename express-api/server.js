@@ -59,6 +59,10 @@ app.post('/post', (req, res) => main.postTableData(req, res, db))
 app.put('/put', (req, res) => main.putTableData(req, res, db))
 app.delete('/delete', (req, res) => main.deleteTableData(req, res, db))
 
+//User registration and login
+app.post('/register', (req, res) => main.registerUserData(req, res, db))
+app.get('/login', (req, res) => main.getUserData(req, res, db))
+
 // App Server Connection
 app.listen(process.env.PORT || 3001, () => {
   console.log(`app is running on port ${process.env.PORT || 3001}`)
