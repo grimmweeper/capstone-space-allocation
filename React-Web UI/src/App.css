@@ -37,7 +37,8 @@
 
 .webmap{
   margin-top: 10px;
-  height: 600px;
+  /* height: 900px; */
+  height: 90vh
 }
 
 * {
