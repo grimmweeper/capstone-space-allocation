@@ -10,7 +10,7 @@ class Retrieve extends Component {
     }
 
     getDB = () => {
-        fetch('http://localhost:3001/crud')
+        fetch('http://localhost:3001/get')
         .then(response => {
             if (response.ok) {
                 //success alert message
