@@ -22,16 +22,77 @@ class Retrieve extends Component {
                 alert('GET FAILED');
                 response = [];
             }
-
         })
         .then(response => {
             var data = response.json();
             this.setState({data:data});
             console.log("state", this.state.data);
         })
-
-
     }
+
+
+    getHexagons = () => {
+        fetch('http://localhost:3001/getHexagons')
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+        })
+        .then(response => {
+            var data = response.json();
+            this.setState({data:data});
+            console.log("state", this.state.data);
+        })
+    }    
+
+    clearHexagons = () => {
+        fetch('http://localhost:3001/clearHexagons')
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+        })
+        .then(response => {
+            var data = response.json();
+            this.setState({data:data});
+            console.log("state", this.state.data);
+        })
+    }  
+    
+    allocateHexagons = () => {
+        fetch('http://localhost:3001/allocateHexagons')
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+        })
+        .then(response => {
+            var data = response.json();
+            this.setState({data:data});
+            console.log("state", this.state.data);
+        })
+    }      
 
     render() {
         return(
@@ -43,7 +104,29 @@ class Retrieve extends Component {
                         </Button>
                     </Col>
                 </Row>
+                <Row className="form-group">
+                    <Col md={{size:10}}>
+                        <Button type="submit" color="primary" onClick = { this.getHexagons }>
+                        Get Hexagons
+                        </Button>
+                    </Col>
+                </Row>                
+                <Row className="form-group">
+                    <Col md={{size:10}}>
+                        <Button type="submit" color="primary" onClick = { this.clearHexagons }>
+                        Clear Hexagons
+                        </Button>
+                    </Col>
+                </Row> 
+                {/* <Row className="form-group">
+                    <Col md={{size:10}}>
+                        <Button type="submit" color="primary" onClick = { this.allocateHexagons }>
+                        Allocate Hexagons
+                        </Button>
+                    </Col>
+                </Row>                                  */}
             </div>
+            
         );
     }
 
