@@ -1,22 +1,10 @@
 
 import React,{Component} from 'react';
 import L from 'leaflet';
-//import {Map,Popup, Marker, TileLayer,Polygon} from 'react-leaflet';
 import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
 
 
-var myIcon = L.icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon-2x.png',
-    iconSize: [25, 41],
-    iconAnchor: [22, 94],
-    popupAnchor: [-10, -90],
-
-})
-
-//const mymarker = [1.34095,103.96305]
-
-var data = [
+/*var dataeg = [
     [
         [
             [1.34095,103.96305],
@@ -35,13 +23,22 @@ var data = [
         ],
         'This is polygon 2',
     ],
-];
+];*/
 
 
 class Floorplan extends Component {
-    
+
+    constructor(){
+        super();
+        this.state = {
+            datalist :[]
+        }
+    }
+
     componentDidMount(){
-        var map = this.map = L.map(ReactDOM.findDOMNode(this),{
+        console.log("Component has mounted")
+
+        var map =this.map =  L.map(ReactDOM.findDOMNode(this),{
             center: [1.34090,103.96315],
             zoom: 20,
             zoomControl: false,
@@ -52,31 +49,41 @@ class Floorplan extends Component {
             maxZoom:22,
             noWrap: true,
             continuousWorld:false,
-        }).addTo(this.map);
-
-/*        //marker
-        var marker = L.marker(mymarker,{
-            icon: myIcon,
-            draggable: true
-        }).addTo(this.map)
-        marker.bindPopup('<b>here is popup (1,1)</b>')
-*/
-
-        // Circle
-        var circle = L.circle([1.34090,103.96300], {
-            radius: 10,
-            draggable: true,
         }).addTo(map);
 
-        //polygon
-        for (var i =0; i < data.length;i++){
-            var poly = new L.Polygon(data[i][0],{
-                draggable: 'true',
-                color: 'red',
+        var that = this;
+        fetch('http://localhost:3000/api/project-data')
+            .then(function(response){
+                response.json()
+                    .then(function(data) {
+                        that.setState({
+                            datalist: data 
+                        })
+                        console.log(data);
+                        console.log("datalist",that.state.datalist[0]);
+
+                        for (var i =0; i < that.state.datalist.length;i++){
+                            var polydata = [
+                                [that.state.datalist[i].p1.x,that.state.datalist[i].p1.y],
+                                [that.state.datalist[i].p2.x,that.state.datalist[i].p2.y],
+                                [that.state.datalist[i].p3.x,that.state.datalist[i].p3.y],
+                                [that.state.datalist[i].p4.x,that.state.datalist[i].p4.y],
+                            ]
+
+                            var polydetail = "Project Nmae: "+JSON.stringify(that.state.datalist[i].project_name)
+                                            +"Type of Prototype: " +JSON.stringify(that.state.datalist[i].type_of_prototype);
+
+
+                            new L.Polygon(polydata,{
+                                draggable: 'true',
+                                color: 'red',
+                            })
+                            .bindPopup(polydetail)
+                            .addTo(map);
+                        }
+
+                    })
             })
-            .bindPopup(data[i][1])
-            .addTo(this.map);
-        }
 
 
         map.on('click',function(e){
@@ -88,10 +95,8 @@ class Floorplan extends Component {
 
     render(){
         return (
-            <div className = 'webmap'>
+            <div className = 'map'>      
             </div>
-
-
         )
     }
 

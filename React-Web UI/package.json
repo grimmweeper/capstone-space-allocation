@@ -12,6 +12,8 @@
     "font-awesome": "^4.7.0",
     "leaflet": "^1.6.0",
     "leaflet-path-drag": "^1.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.0.0",
     "react": "^16.12.0",
     "react-animation-components": "^3.0.0",
     "react-csv-reader": "^2.0.2",
