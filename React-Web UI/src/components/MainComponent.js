@@ -8,6 +8,7 @@ import Retrieve from './RetrieveComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
+import Sidebar from './SidebarComponent';
 
 const mapDispatchToProps = dispatch => ({
   resetSignupForm: () => { dispatch(actions.reset('signup'))}
@@ -48,6 +49,7 @@ class Main extends Component {
                <Route exact path='/floorplan' component={Floorplan} />} />
                <Route exact path='/upload' component={Upload} />} />
                <Route exact path='/retrieve' component={Retrieve} />} />
+               <Route exact path='/sidebar' component={Sidebar} />} />
               <Redirect to="/home" />
           </Switch>
         </div>
