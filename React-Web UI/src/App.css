@@ -42,9 +42,36 @@
   height: 90vh
 =======
 .map{
+<<<<<<< HEAD
   margin-top: 50px;
   height: 600px;
 >>>>>>> 06a3464... retrieve data
+=======
+  height: 300px; margin-top: 50px; position: relative; outline: none;
+}
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sideclick {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sideclick:hover {
+  color: #f1f1f1;
+>>>>>>> 1c8ab7d... Added side bar
 }
 
 * {
