@@ -4,21 +4,7 @@ import ReactDOM from 'react-dom';
 import Sidebar from './SidebarComponent';
 
 
-<<<<<<< HEAD
-var myIcon = L.icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon-2x.png',
-    iconSize: [25, 41],
-    iconAnchor: [12.5, 40],
-    popupAnchor: [-10, -90],
-
-})
-
-//const mymarker = [1.34095,103.96305]
-
-var data = [
-=======
 /*var dataeg = [
->>>>>>> 06a3464... retrieve data
     [
         [
             [1.34095,103.96305],
