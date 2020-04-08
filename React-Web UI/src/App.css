@@ -35,10 +35,16 @@
   color: #666;
 }
 
+<<<<<<< HEAD
 .webmap{
   margin-top: 10px;
   /* height: 900px; */
   height: 90vh
+=======
+.map{
+  margin-top: 50px;
+  height: 600px;
+>>>>>>> 06a3464... retrieve data
 }
 
 * {
