@@ -22,16 +22,77 @@ class Retrieve extends Component {
                 alert('GET FAILED');
                 response = [];
             }
-
         })
         .then(response => {
             var data = response.json();
             this.setState({data:data});
             console.log("state", this.state.data);
         })
-
-
     }
+
+
+    getSquares = () => {
+        fetch('http://localhost:3001/getSquares')
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+        })
+        .then(response => {
+            var data = response.json();
+            this.setState({data:data});
+            console.log("state", this.state.data);
+        })
+    }    
+
+    clearSquares = () => {
+        fetch('http://localhost:3001/clearSquares')
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+        })
+        .then(response => {
+            var data = response.json();
+            this.setState({data:data});
+            console.log("state", this.state.data);
+        })
+    }  
+    
+    allocateSquares = () => {
+        fetch('http://localhost:3001/allocateSquares')
+        .then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('GET SUCCESS');
+                return response;
+            }
+            else {
+                //error alert message
+                alert('GET FAILED');
+                response = [];
+            }
+        })
+        .then(response => {
+            var data = response.json();
+            this.setState({data:data});
+            console.log("state", this.state.data);
+        })
+    }      
 
     render() {
         return(
@@ -43,7 +104,29 @@ class Retrieve extends Component {
                         </Button>
                     </Col>
                 </Row>
+                <Row className="form-group">
+                    <Col md={{size:10}}>
+                        <Button type="submit" color="primary" onClick = { this.getSquares }>
+                        Get Squares
+                        </Button>
+                    </Col>
+                </Row>                
+                <Row className="form-group">
+                    <Col md={{size:10}}>
+                        <Button type="submit" color="primary" onClick = { this.clearSquares }>
+                        Clear Squares
+                        </Button>
+                    </Col>
+                </Row> 
+                <Row className="form-group">
+                    <Col md={{size:10}}>
+                        <Button type="submit" color="primary" onClick = { this.allocateSquares }>
+                        Allocate Squares
+                        </Button>
+                    </Col>
+                </Row>                                 
             </div>
+            
         );
     }
 

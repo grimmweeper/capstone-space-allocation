@@ -30,6 +30,16 @@ var db = require('knex')({
   }
 });
 
+// Allow postgis queries
+const knexPostgis = require('knex-postgis');
+const st = knexPostgis(db);
+
+// db.postgisDefineExtras((knex, formatter) => ({
+//   utmzone(geom) {
+//     return knex.raw('utmzone(?)', [formatter.wrapWKT(geom)]);
+//   }
+// }));
+
 // Controllers - aka, the db queries
 const main = require('./controllers/main')
 
@@ -58,6 +68,10 @@ app.get('/get', (req, res) => main.getTableData(req, res, db))
 app.post('/post', (req, res) => main.postTableData(req, res, db))
 app.put('/put', (req, res) => main.putTableData(req, res, db))
 app.delete('/delete', (req, res) => main.deleteTableData(req, res, db))
+
+app.get('/getSquares', (req, res) => main.getSquares(req, res, db, st))
+app.get('/clearSquares', (req, res) => main.clearSquares(req, res, db))
+app.get('/allocateSquares', (req, res) => main.allocateSquares(req, res, db, st))
 
 // App Server Connection
 app.listen(process.env.PORT || 3001, () => {
