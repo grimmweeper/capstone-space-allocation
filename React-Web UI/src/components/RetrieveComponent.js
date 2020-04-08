@@ -31,8 +31,8 @@ class Retrieve extends Component {
     }
 
 
-    getHexagons = () => {
-        fetch('http://localhost:3001/getHexagons')
+    getSquares = () => {
+        fetch('http://localhost:3001/getSquares')
         .then(response => {
             if (response.ok) {
                 //success alert message
@@ -52,8 +52,8 @@ class Retrieve extends Component {
         })
     }    
 
-    clearHexagons = () => {
-        fetch('http://localhost:3001/clearHexagons')
+    clearSquares = () => {
+        fetch('http://localhost:3001/clearSquares')
         .then(response => {
             if (response.ok) {
                 //success alert message
@@ -73,8 +73,8 @@ class Retrieve extends Component {
         })
     }  
     
-    allocateHexagons = () => {
-        fetch('http://localhost:3001/allocateHexagons')
+    allocateSquares = () => {
+        fetch('http://localhost:3001/allocateSquares')
         .then(response => {
             if (response.ok) {
                 //success alert message
@@ -106,25 +106,25 @@ class Retrieve extends Component {
                 </Row>
                 <Row className="form-group">
                     <Col md={{size:10}}>
-                        <Button type="submit" color="primary" onClick = { this.getHexagons }>
-                        Get Hexagons
+                        <Button type="submit" color="primary" onClick = { this.getSquares }>
+                        Get Squares
                         </Button>
                     </Col>
                 </Row>                
                 <Row className="form-group">
                     <Col md={{size:10}}>
-                        <Button type="submit" color="primary" onClick = { this.clearHexagons }>
-                        Clear Hexagons
+                        <Button type="submit" color="primary" onClick = { this.clearSquares }>
+                        Clear Squares
                         </Button>
                     </Col>
                 </Row> 
-                {/* <Row className="form-group">
+                <Row className="form-group">
                     <Col md={{size:10}}>
-                        <Button type="submit" color="primary" onClick = { this.allocateHexagons }>
-                        Allocate Hexagons
+                        <Button type="submit" color="primary" onClick = { this.allocateSquares }>
+                        Allocate Squares
                         </Button>
                     </Col>
-                </Row>                                  */}
+                </Row>                                 
             </div>
             
         );

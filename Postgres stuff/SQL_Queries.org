@@ -1,35 +1,36 @@
 * Filter Hexagon grid to only those in area
-SELECT gis.hexagons_l1_1m.*
+SELECT gis.squares_l1_05m.*
 -- filter hexagons contained by ccl1
-FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
-ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m
+ON ST_Contains(gis.ccl1.geom, gis.squares_l1_05m.geom)
 -- filter hexagons out hexagon that intersects ccl1_pits
 LEFT JOIN gis.ccl1_pits
-ON ST_Intersects(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom)
+ON ST_Intersects(gis.ccl1_pits.geom, gis.squares_l1_05m.geom)
 WHERE gis.ccl1_pits.gid IS NULL
+AND gis.squares_l1_05m.project_no != -1
 
 * NOT DONE : Return T/F based on contains 
 SELECT *
-FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
-ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m
+ON ST_Contains(gis.ccl1.geom, gis.squares_l1_05m.geom)
 RIGHT JOIN gis.ccl1_pits
-ON ST_Contains(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom)
+ON ST_Contains(gis.ccl1_pits.geom, gis.squares_l1_05m.geom)
 
 * Clear all project_no back to -1
-UPDATE gis.hexagons_l1_1m SET project_no = -1
+UPDATE gis.squares_l1_05m SET project_no = -1
 
 * Update selected column
-UPDATE gis.hexagons_l1_1m SET project_no = 1 WHERE a = 0 AND b = 0
+UPDATE gis.squares_l1_05m SET project_no = 1 WHERE a = 0 AND b = 0
 
 * SELECT all
-SELECT * FROM gis.hexagons_l1_1m ORDER by gid
+SELECT * FROM gis.squares_l1_05m ORDER by gid
 
 
 * SELECT stuff touching the point
-SELECT gis.hexagons_l1_1m.geom
+SELECT gis.squares_l1_05m.geom
 -- filter hexagons contained by ccl1
-FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
-ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m
+ON ST_Contains(gis.ccl1.geom, gis.squares_l1_05m.geom)
 AND (ST_Intersects(
 ST_MPolyFromText('MULTIPOLYGON(((
   103.963066660790901 1.340752667639772, 
@@ -39,26 +40,26 @@ ST_MPolyFromText('MULTIPOLYGON(((
   103.963074442291202 1.340748145411852, 
   103.963069254465651 1.340748145688492, 
   103.963066660790901 1.340752667639772  )))', 4326),
-	gis.hexagons_l1_1m.geom))
+	gis.squares_l1_05m.geom))
 
 -- filter hexagons out hexagon that intersects ccl1_pits
 LEFT JOIN gis.ccl1_pits
-ON (ST_Intersects(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom))
+ON (ST_Intersects(gis.ccl1_pits.geom, gis.squares_l1_05m.geom))
 WHERE gis.ccl1_pits.gid IS NULL
 
 ** Select touching point test
- SELECT gis.hexagons_l1_1m.geom
+ SELECT gis.squares_l1_05m.geom
  -- filter hexagons contained by ccl1
- FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
- ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+ FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m
+ ON ST_Contains(gis.ccl1.geom, gis.squares_l1_05m.geom)
  AND (ST_Intersects(
  ST_GeomFromText('POINT(103.9629548 1.34095539)',4326),
-	 gis.hexagons_l1_1m.geom))
+	 gis.squares_l1_05m.geom))
 
  -- filter hexagons out hexagon that intersects ccl1_pits
  -- this filters out the boundaries
  LEFT JOIN gis.ccl1_pits
- ON (ST_Intersects(gis.ccl1_pits.geom, gis.hexagons_l1_1m.geom))
+ ON (ST_Intersects(gis.ccl1_pits.geom, gis.squares_l1_05m.geom))
  WHERE gis.ccl1_pits.gid IS NULL
 
 
@@ -78,12 +79,12 @@ SELECT ST_GeomFromText('POINT( 103.963133 1.340669)',4326);
 SELECT ST_GeomFromText('POINT(103.9629548 1.34095539)',4326);
 
 * UPDATE Based on select 
-UPDATE gis.hexagons_l1_1m
+UPDATE gis.squares_l1_05m
 SET project_no = 1
-FROM(SELECT gis.hexagons_l1_1m.geom
+FROM(SELECT gis.squares_l1_05m.geom
 -- filter hexagons contained by ccl1
-FROM gis.ccl1 LEFT JOIN gis.hexagons_l1_1m
-ON ST_Contains(gis.ccl1.geom, gis.hexagons_l1_1m.geom)
+FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m
+ON ST_Contains(gis.ccl1.geom, gis.squares_l1_05m.geom)
 AND (ST_Intersects(
 ST_MPolyFromText('MULTIPOLYGON(((
   103.963066660790901 1.340752667639772, 
@@ -93,4 +94,8 @@ ST_MPolyFromText('MULTIPOLYGON(((
   103.963074442291202 1.340748145411852, 
   103.963069254465651 1.340748145688492, 
   103.963066660790901 1.340752667639772  )))', 4326),
-	gis.hexagons_l1_1m.geom))) as foo
+	gis.squares_l1_05m.geom))) as foo
+
+* For update 
+SELECT * from gis.squares_l1_05m
+WHERE (gis.squares_l1_05m.a, gis.squares_l1_05m.b) IN (VALUES (1,1), (1,2), (1,3))

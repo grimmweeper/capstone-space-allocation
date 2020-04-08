@@ -79,11 +79,18 @@ const deleteTableData = (req, res, db) => {
     .catch(err => res.status(400).json({dbError: 'db error'}))
 }
 
-const getHexagons = (req, res, db, st) => {
-  db.withSchema('gis').select('hexagons_l1_1m.*')
-  .from('ccl1').leftJoin('hexagons_l1_1m', st.dwithin('ccl1.geom', 'hexagons_l1_1m.geom', 0))
-  .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'hexagons_l1_1m.geom'))
+const getSquares = (req, res, db, st) => {
+  db.postgisDefineExtras((knex, formatter) => ({  
+    asGeoJSON2(col) { // Not exactly sure why st.asGeoJSON won't build the query right
+      return knex.raw('ST_asGeoJSON(?)', [formatter.wrapWKT(col)]);
+    }
+  }));
+  
+  db.withSchema('gis').select('squares_l1_05m.project_no',st.asGeoJSON2('squares_l1_05m.geom'))
+  .from('ccl1').rightJoin('squares_l1_05m', st.dwithin('ccl1.geom', 'squares_l1_05m.geom', 0))
+  .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'squares_l1_05m.geom'))
   .whereNull('ccl1_pits.gid')
+  .where('project_no', -1)  
   .then(items => {
     if(items.length){
       res.json(items)
@@ -94,8 +101,8 @@ const getHexagons = (req, res, db, st) => {
   .catch(err => res.status(400).json({dbError: 'db error'}))
 }
 
-const clearHexagons = (req, res, db) => {
-  db('hexagons_l1_1m').withSchema('gis')
+const clearSquares = (req, res, db) => {
+  db('squares_l1_05m').withSchema('gis')
   .update({
     project_no : '-1',
   })
@@ -105,20 +112,69 @@ const clearHexagons = (req, res, db) => {
   .catch(err => res.status(400).json({dbError: 'db error'}))
 }
 
-const allocateHexagons = (req, res, db, st) => {
-  db.withSchema('gis').select('hexagons_l1_1m.*')
-  .from('ccl1').leftJoin('hexagons_l1_1m', st.dwithin('ccl1.geom', 'hexagons_l1_1m.geom', 0))
-  .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'hexagons_l1_1m.geom'))
-  .whereNull('ccl1_pits.gid')
-  .limit(40)
-  .then(items => {
-    if(items.length){
-      res.json(items)
-    } else {
-      res.json({dataExists: 'false'})
+
+function isInt(value) {
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && 
+         !isNaN(parseInt(value, 10));
+}
+
+const allocateSquares = async(req, res, db, st) => {
+  
+  let data = await db.select('*').from('escdummy')
+  .where('height', '<', 50)
+  .orderByRaw('length+width DESC')
+  .limit(20)
+  .catch(err => res.status(400).json({dbError: 'db error'}))  
+
+  // 1. randomly select a row
+  // 2. check if has all we need
+  // 3. update
+  for (let p = 0; p < data.length; p++){
+    let success = false;
+    while (!success){
+
+      let i = parseInt(data[p].length/0.5)
+      let j = parseInt(data[p].width/0.5)
+
+      let random = await db.withSchema('gis').select('squares_l1_05m.*')
+      .from('ccl1').leftJoin('squares_l1_05m', st.dwithin('ccl1.geom', 'squares_l1_05m.geom', 0))
+      .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'squares_l1_05m.geom'))
+      .whereNull('ccl1_pits.gid')
+      .where('project_no', -1)
+      .orderByRaw('random()')
+      .limit(1)
+      .catch(err => res.status(400).json({dbError: 'db error'}))
+
+      let random_a = parseInt(random[0].a)
+      let random_b = parseInt(random[0].b)
+
+      let count = await db.withSchema('gis').count('squares_l1_05m.a','squares_l1_05m.b')
+      .from('ccl1').leftJoin('squares_l1_05m', st.dwithin('ccl1.geom', 'squares_l1_05m.geom', 0))
+      .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'squares_l1_05m.geom'))
+      .whereNull('ccl1_pits.gid')
+      .where('project_no', -1)
+      .whereBetween('a', [random_a, random_a + i -1])
+      .whereBetween('b', [random_b, random_b + j -1])
+      .catch(err => res.status(400).json({dbError: 'db error'}))
+
+      if (parseInt(count[0].count) == i*j){ //update if all values are available
+        
+        await db('squares_l1_05m').withSchema('gis').update({
+          project_no : isInt(data[p].id)? data[p].id : 1
+        })
+        .whereBetween('a', [random_a, random_a + i -1])
+        .whereBetween('b', [random_b, random_b + j -1])
+        .catch(err => res.status(400).json({dbError: 'db error'}))
+        success = true
+      } 
+      else {
+        // res.json({test: 'failure'})
+        success = false 
+      }
     }
-  })
-  .catch(err => res.status(400).json({dbError: 'db error'}))
+  }
+  res.json({test: 'success'})
 }
 
 
@@ -128,7 +184,7 @@ module.exports = {
   postTableData,
   putTableData,
   deleteTableData,
-  getHexagons,
-  clearHexagons,
-  allocateHexagons,
+  getSquares,
+  clearSquares,
+  allocateSquares,
 }
