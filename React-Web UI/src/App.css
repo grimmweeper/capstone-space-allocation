@@ -1,27 +1,3 @@
-.row-header{
-  margin:0px auto;
-  padding:0px auto;
-}
-
-.row-content {
-  margin:0px auto;
-  padding: 50px 0px 50px 0px;
-  border-bottom: 1px ridge;
-  min-height:400px;
-}
-
-.jumbotron {
-  padding:70px 30px 70px 30px;
-  margin:0px auto;
-  background: gray ;
-  color:floralwhite;
-}
-
-
-.navbar-dark {
-  background-color:darkgray;
-}
-
 .csv-input {
   padding: 10px;
   display: block;
@@ -36,7 +12,12 @@
 }
 
 .map{
-  height: 300px; margin-top: 50px; position: relative; outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .sidenav {
