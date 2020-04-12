@@ -1,31 +1,45 @@
 import { userConstants } from './UserActionType';
-import { userService } from '../Services/UserService';
 import { alertActions } from './AlertActionCreator';
 import { history } from '../helper/history';
 
 export const userActions = {
     login,
     logout,
-    register,
-    getAll,
-    delete: _delete
+    register
+
 };
 //weepz (to replace with proper register/login authentication)
-function login(username, password) {
-    return dispatch => {
-        dispatch(request({ username }));
+function login(user) {
 
-        userService.login(username, password)
-            .then(
-                user => { 
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
+
+    return dispatch => {
+        dispatch(request(user));
+
+        console.log(JSON.stringify(user));
+        fetch('http://localhost:3001/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        }).then(response => {
+            if (response.ok) {
+                //success alert message
+                localStorage.setItem('user', JSON.stringify(user));
+                alert('POST SUCCESS');
+                dispatch(success(user));
+                history.push('/home');
+                dispatch(alertActions.success('Login Successful'));
+            }
+            else {
+                //error alert message
+                //alert('Registration failed. Please try again.');
+                dispatch(failure(response.json().toString()));
+                dispatch(alertActions.error(response.json().toString()));
+            }
+
+        })
     };
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
@@ -34,7 +48,7 @@ function login(username, password) {
 }
 
 function logout() {
-    userService.logout();
+    localStorage.removeItem('user');
     return { type: userConstants.LOGOUT };
 }
 
@@ -42,18 +56,30 @@ function register(user) {
     return dispatch => {
         dispatch(request(user));
 
-        userService.register(user)
-            .then(
-                user => { 
-                    dispatch(success());
-                    history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
+        console.log(JSON.stringify(user));
+        fetch('http://localhost:3001/register', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        }).then(response => {
+            if (response.ok) {
+                //success alert message
+                alert('POST SUCCESS');
+                dispatch(success());
+                history.push('/login');
+                dispatch(alertActions.success('Registration successful'));
+            }
+            else {
+                //error alert message
+                //alert('Registration failed. Please try again.');
+                dispatch(failure(response.json().toString()));
+                dispatch(alertActions.error(response.json().toString()));
+            }
+
+        })
     };
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
@@ -61,35 +87,3 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function getAll() {
-    return dispatch => {
-        dispatch(request());
-
-        userService.getAll()
-            .then(
-                users => dispatch(success(users)),
-                error => dispatch(failure(error.toString()))
-            );
-    };
-
-    function request() { return { type: userConstants.GETALL_REQUEST } }
-    function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
-    return dispatch => {
-        dispatch(request(id));
-
-        userService.delete(id)
-            .then(
-                user => dispatch(success(id)),
-                error => dispatch(failure(id, error.toString()))
-            );
-    };
-
-    function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-    function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
-    function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
-}
