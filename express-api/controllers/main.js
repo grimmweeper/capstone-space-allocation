@@ -184,7 +184,20 @@ const allocateSquares = async(req, res, db, st) => {
   //////////////////////////////////////////
   */
 
- const registerUserData = (req, res, db) => {
+ const registerUserData = async (req, res, db) => {
+
+    // Create table if it doesn't exist
+    await db.schema.hasTable('usertable').then(function(exists) {
+      if (!exists) {
+        return db.schema.createTable('usertable', function(t) {
+          t.string('username').primary();
+          t.string('password');
+          t.string('email');
+          t.string('type');
+          t.date('date_added');
+        })
+      }
+    })
   // Register user
     const { username, password, email, type } = req.body
     const date_added = new Date()
