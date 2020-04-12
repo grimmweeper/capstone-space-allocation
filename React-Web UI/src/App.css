@@ -44,6 +44,10 @@
   color: #f1f1f1;
 }
 
+.help-block {
+  color: red;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Helvetica", sans-serif;

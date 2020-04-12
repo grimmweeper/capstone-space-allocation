@@ -2,13 +2,14 @@ import { userConstants } from './UserActionType';
 import { alertActions } from './AlertActionCreator';
 import { history } from '../helper/history';
 
+
 export const userActions = {
     login,
     logout,
     register
 
 };
-//weepz (to replace with proper register/login authentication)
+
 function login(user) {
 
 
@@ -27,7 +28,7 @@ function login(user) {
             if (response.ok) {
                 //success alert message
                 localStorage.setItem('user', JSON.stringify(user));
-                alert('POST SUCCESS');
+                alert('Login Successful');
                 dispatch(success(user));
                 history.push('/home');
                 dispatch(alertActions.success('Login Successful'));
@@ -35,8 +36,9 @@ function login(user) {
             else {
                 //error alert message
                 //alert('Registration failed. Please try again.');
+                alert('Invalid username or password.');
                 dispatch(failure(response.json().toString()));
-                dispatch(alertActions.error(response.json().toString()));
+                dispatch(alertActions.error("failed"));
             }
 
         })
@@ -67,16 +69,16 @@ function register(user) {
         }).then(response => {
             if (response.ok) {
                 //success alert message
-                alert('POST SUCCESS');
+                alert('Registration successful');
                 dispatch(success());
                 history.push('/login');
                 dispatch(alertActions.success('Registration successful'));
             }
             else {
                 //error alert message
-                //alert('Registration failed. Please try again.');
+                alert('Registration failed. Please try again.');
                 dispatch(failure(response.json().toString()));
-                dispatch(alertActions.error(response.json().toString()));
+                dispatch(alertActions.error("failed"));
             }
 
         })

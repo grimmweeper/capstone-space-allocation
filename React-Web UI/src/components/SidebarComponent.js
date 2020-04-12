@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Sidebar(props)
+function Sidebar()
 {
     return(
         <div class="sidenav">
@@ -11,7 +11,7 @@ function Sidebar(props)
             <Link class="sideclick" to="/retrieve">Retrieve</Link>
             <Link class="sideclick" to="#">Allocate</Link>
             <Link class="sideclick" to="#">Save</Link>
-            <Link class="sideclick" to="#">Sign Out</Link>
+            <Link class="sideclick" to="/login">Sign Out</Link>
         </div>
     );
 }

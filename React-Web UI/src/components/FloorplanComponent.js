@@ -96,10 +96,9 @@ class Floorplan extends Component {
 
     render(){
         return (
-                <div className = "map">      
-            </div>    
 
-
+            <div className = "map">
+            </div>
         )
     }
 
