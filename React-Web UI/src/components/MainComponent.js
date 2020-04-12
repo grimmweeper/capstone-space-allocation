@@ -37,7 +37,7 @@ class Main extends Component {
 
     return (
       <div>
-        <Header />
+        <Sidebar/>
         <div>
           <Switch>
               <Route path='/home' component={HomePage} />
@@ -49,7 +49,6 @@ class Main extends Component {
                <Route exact path='/floorplan' component={Floorplan} />} />
                <Route exact path='/upload' component={Upload} />} />
                <Route exact path='/retrieve' component={Retrieve} />} />
-               <Route exact path='/sidebar' component={Sidebar} />} />
               <Redirect to="/home" />
           </Switch>
         </div>

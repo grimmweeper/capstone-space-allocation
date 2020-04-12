@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import L from 'leaflet';
 import ReactDOM from 'react-dom';
-import Sidebar from './SidebarComponent';
+
 
 
 
@@ -97,7 +97,6 @@ class Floorplan extends Component {
     render(){
         return (
             <div>
-                <Sidebar/>
                 <div className = 'map'>      
             </div>
             </div>    
