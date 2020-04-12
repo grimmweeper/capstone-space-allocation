@@ -1,3 +1,5 @@
+
+
 const getTableData = (req, res, db) => {
   db.select('*').from('escdummy')
   .then(items => {
@@ -184,6 +186,8 @@ const allocateSquares = async(req, res, db, st) => {
   //////////////////////////////////////////
   */
 
+ const bcrypt = require("bcrypt"); //Hashing
+
  const registerUserData = async (req, res, db) => {
 
     // Create table if it doesn't exist
@@ -195,13 +199,19 @@ const allocateSquares = async(req, res, db, st) => {
           t.string('email');
           t.string('type');
           t.date('date_added');
+          t.string('salt');
         })
       }
     })
   // Register user
-    const { username, password, email, type } = req.body
+    var{ username, password, email, type } = req.body
+    const salt = await bcrypt.genSalt(10);
+    console.log(salt);
+    console.log(password);
+    password = await bcrypt.hash(password,salt);
+    console.log(password);
     const date_added = new Date()
-    db('usertable').insert({ username, password, email, type, date_added })
+    db('usertable').insert({ username, password, email, type, date_added, salt })
     .returning('*')
     .then(item => {
       res.json(item)
@@ -209,13 +219,28 @@ const allocateSquares = async(req, res, db, st) => {
     .catch(err => res.status(400).json({dbError: 'db error'}))
   }
 
-  const getUserData = (req, res, db) => {
-    const { username, password } = req.body
+  const getUserData = async (req, res, db) => {
+    var { username, password } = req.body
+    var salt = '';
+
+    await db('usertable').where({
+      username: username
+    }).select('salt')
+    .then(items => {
+      console.log(items)
+      salt = items[0].salt
+      console.log(salt)
+    })
+    .catch(err => res.status(400).json({dbError: 'db error'}))
+
+    console.log(password)
+    password = await bcrypt.hash(password,salt);
+    console.log(password)
 
     db('usertable').where({
       username: username ,
       password: password 
-    }).select('type')
+    }).select('password')
     .then(items => {
       if(items.length){
         res.json(items)

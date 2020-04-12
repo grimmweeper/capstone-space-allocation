@@ -9,6 +9,8 @@ const bodyParser = require('body-parser') // turns response into usable format
 const cors = require('cors')  // allows/disallows cross-site communication
 const morgan = require('morgan') // logs requests
 
+
+
 // db Connection w/ Heroku
 // const db = require('knex')({
 //   client: 'pg',
@@ -77,7 +79,7 @@ app.get('/allocateSquares', (req, res) => main.allocateSquares(req, res, db, st)
 
 //User registration and login
 app.post('/register', (req, res) => main.registerUserData(req, res, db))
-app.get('/login', (req, res) => main.getUserData(req, res, db))
+app.post('/login', (req, res) => main.getUserData(req, res, db))
 
 // App Server Connection
 app.listen(process.env.PORT || 3001, () => {
