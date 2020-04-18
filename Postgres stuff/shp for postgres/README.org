@@ -1,0 +1,11 @@
+use export button to 4326
+
+psql -d postgres -c "CREATE EXTENSION postgis;"
+
+psql -d postgres -c "CREATE SCHEMA gis;"
+
+shp2pgsql -s 4326 -I 'CCL1.shp' gis.CCL1 | psql -d postgres -U postgres
+
+shp2pgsql -s 4326 -I 'CCL1_pits.shp' gis.CCL1_pits | psql -d postgres -U postgres
+
+shp2pgsql -s 4326 -I '1m_hexagons_L1.shp' gis.hexagons_L1_1m | psql -d postgres -U postgres

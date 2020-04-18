@@ -84,15 +84,13 @@ const deleteTableData = (req, res, db) => {
 const getSquares = (req, res, db, st) => {
   db.postgisDefineExtras((knex, formatter) => ({  
     asGeoJSON2(col) { // Not exactly sure why st.asGeoJSON won't build the query right
-      return knex.raw('ST_asGeoJSON(?)', [formatter.wrapWKT(col)]);
+      return knex.raw('ST_asGeoJSON(ST_UNION(?))', [formatter.wrapWKT(col)]);
     }
   }));
   
-  db.withSchema('gis').select('squares_l1_05m.project_no',st.asGeoJSON2('squares_l1_05m.geom'))
-  .from('ccl1').rightJoin('squares_l1_05m', st.dwithin('ccl1.geom', 'squares_l1_05m.geom', 0))
-  .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'squares_l1_05m.geom'))
-  .whereNull('ccl1_pits.gid')
-  .where('project_no', -1)  
+  db.withSchema('gis').select('project_no',st.asGeoJSON2('geom'))
+  .from('squares')
+  .groupBy('project_no')
   .then(items => {
     if(items.length){
       res.json(items)
@@ -104,7 +102,7 @@ const getSquares = (req, res, db, st) => {
 }
 
 const clearSquares = (req, res, db) => {
-  db('squares_l1_05m').withSchema('gis')
+  db('squares').withSchema('gis')
   .update({
     project_no : '-1',
   })
@@ -114,19 +112,12 @@ const clearSquares = (req, res, db) => {
   .catch(err => res.status(400).json({dbError: 'db error'}))
 }
 
-
-function isInt(value) {
-  return !isNaN(value) && 
-         parseInt(Number(value)) == value && 
-         !isNaN(parseInt(value, 10));
-}
-
 const allocateSquares = async(req, res, db, st) => {
   
   let data = await db.select('*').from('escdummy')
   .where('height', '<', 50)
   .orderByRaw('length+width DESC')
-  .limit(20)
+  .limit(25)
   .catch(err => res.status(400).json({dbError: 'db error'}))  
 
   // 1. randomly select a row
@@ -139,10 +130,7 @@ const allocateSquares = async(req, res, db, st) => {
       let i = parseInt(data[p].length/0.5)
       let j = parseInt(data[p].width/0.5)
 
-      let random = await db.withSchema('gis').select('squares_l1_05m.*')
-      .from('ccl1').leftJoin('squares_l1_05m', st.dwithin('ccl1.geom', 'squares_l1_05m.geom', 0))
-      .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'squares_l1_05m.geom'))
-      .whereNull('ccl1_pits.gid')
+      let random = await db.withSchema('gis').select('*').from('squares')
       .where('project_no', -1)
       .orderByRaw('random()')
       .limit(1)
@@ -151,10 +139,7 @@ const allocateSquares = async(req, res, db, st) => {
       let random_a = parseInt(random[0].a)
       let random_b = parseInt(random[0].b)
 
-      let count = await db.withSchema('gis').count('squares_l1_05m.a','squares_l1_05m.b')
-      .from('ccl1').leftJoin('squares_l1_05m', st.dwithin('ccl1.geom', 'squares_l1_05m.geom', 0))
-      .leftJoin('ccl1_pits', st.intersects('ccl1_pits.geom', 'squares_l1_05m.geom'))
-      .whereNull('ccl1_pits.gid')
+      let count = await db.withSchema('gis').count('a','b').from('squares')
       .where('project_no', -1)
       .whereBetween('a', [random_a, random_a + i -1])
       .whereBetween('b', [random_b, random_b + j -1])
@@ -162,8 +147,8 @@ const allocateSquares = async(req, res, db, st) => {
 
       if (parseInt(count[0].count) == i*j){ //update if all values are available
         
-        await db('squares_l1_05m').withSchema('gis').update({
-          project_no : isInt(data[p].id)? data[p].id : 1
+        await db('squares').withSchema('gis').update({
+          project_no : data[p].id
         })
         .whereBetween('a', [random_a, random_a + i -1])
         .whereBetween('b', [random_b, random_b + j -1])

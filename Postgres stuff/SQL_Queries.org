@@ -99,3 +99,18 @@ ST_MPolyFromText('MULTIPOLYGON(((
 * For update 
 SELECT * from gis.squares_l1_05m
 WHERE (gis.squares_l1_05m.a, gis.squares_l1_05m.b) IN (VALUES (1,1), (1,2), (1,3))
+
+
+
+SELECT foo.project_no, ST_UNION(foo.geom) FROM 
+(SELECT gis.squares_l1_05m.* as foo
+-- filter hexagons contained by ccl1
+FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m
+ON ST_Contains(gis.ccl1.geom, gis.squares_l1_05m.geom)
+-- filter hexagons out hexagon that intersects ccl1_pits
+LEFT JOIN gis.ccl1_pits
+ON ST_Intersects(gis.ccl1_pits.geom, gis.squares_l1_05m.geom)
+WHERE gis.ccl1_pits.gid IS NULL
+AND gis.squares_l1_05m.project_no != -1) foo
+
+GROUP BY foo.project_no
