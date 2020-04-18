@@ -90,6 +90,7 @@ const getSquares = (req, res, db, st) => {
   
   db.withSchema('gis').select('project_no',st.asGeoJSON2('geom'))
   .from('squares')
+  .whereNot('project_no', '-1')
   .groupBy('project_no')
   .then(items => {
     if(items.length){
