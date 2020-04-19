@@ -90,13 +90,6 @@ function Sidebar()
     return(
         <div className="sidenav">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-            {/* <Link class="sideclick" to="/home">Home</Link>
-            <Link class="sideclick" to="/floorplan">Map</Link>
-            <Link class="sideclick" to="/upload">Upload</Link>
-            <Link class="sideclick" to="/retrieve">Retrieve</Link>
-            <Link class="sideclick" to="#">Allocate</Link>
-            <Link class="sideclick" to="#">Save</Link>
-            <Link class="sideclick" to="/login">Sign Out</Link> */}
 
             <button type = "submit" className="sidebutton" onClick = { goHome }><i className="fa fa-home"></i></button>
             <button type = "submit" className="sidebutton" onClick = { goMap }><i className="fa fa-map"></i></button>

@@ -14,7 +14,6 @@ import { alertActions } from '../redux/AlertActionCreator';
 import { Switch, Route, Redirect, withRouter, Router } from 'react-router-dom'
 import { connect } from 'react-redux';
 
-import { history } from '../helper/history';
 
 
 
