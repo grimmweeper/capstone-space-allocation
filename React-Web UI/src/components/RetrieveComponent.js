@@ -97,13 +97,11 @@ class Retrieve extends Component {
     render() {
         return(
             <div className="container">
-                <Row className="form-group">
-                    <Col md={{size:10}}>
+
                         <Button type="submit" color="primary" onClick = { this.getDB }>
                         Retrieve
                         </Button>
-                    </Col>
-                </Row>
+
                 <Row className="form-group">
                     <Col md={{size:10}}>
                         <Button type="submit" color="primary" onClick = { this.getSquares }>

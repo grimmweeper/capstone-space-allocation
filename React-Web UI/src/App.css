@@ -8,7 +8,6 @@
 
 .container {
   padding-top: 2%;
-  color: #666;
   padding-left: 13%;
 }
 
@@ -23,14 +22,14 @@
 
 .sidenav {
   height: 100%;
-  width: 10%;
+  width: 5%;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color:#333;
   overflow-x: hidden;
-  padding-top: 2%;
+
 }
 
 .sideclick {
@@ -47,6 +46,28 @@
 
 .help-block {
   color: red;
+}
+
+.sidebutton {
+  background-color: #333;
+  border: none;
+  color: white;
+  width:100%;
+  padding: 20% 20%;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.sidebutton:hover {
+  background-color: #222;
+}
+
+.sidebutton:active {
+  transform: translateY(2px);
+}
+
+.sidebutton:focus {
+  background-color: #222;
 }
 
 * {
