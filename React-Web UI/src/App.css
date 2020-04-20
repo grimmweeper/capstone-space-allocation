@@ -21,14 +21,21 @@
   /* background-color: white; */
 }
 
-#L1_map, #L2_map { 
-  height: 49.5%; 
+#L1_map { 
+  height: 100%;
+  width:52%;
+  float: left;
 } 
 
-#space{
+#L2_map { 
+  height: 100%;
+  width:47%; 
+  float: right;
+} 
+/* #space{
   height: 1%;
   background-color: white;
-}
+} */
 
 .sidenav {
   height: 100%;

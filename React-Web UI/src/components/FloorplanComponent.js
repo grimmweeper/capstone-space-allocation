@@ -87,6 +87,14 @@ class Floorplan extends Component {
             continuousWorld:false,
         }).addTo(L2_map);
 
+        L.easyPrint({
+            title: 'Export as PNG',
+            position: 'bottomright',
+            sizeModes: ['A4Landscape'],
+            exportOnly: true,
+            filename: 'Capstone-floorplan-L2'
+        }).addTo(L2_map);
+
         L1_map.sync(L2_map);
         L2_map.sync(L1_map);
 
@@ -97,11 +105,7 @@ class Floorplan extends Component {
     render(){
         return (
             <div className = "map">
-
-                <div id = "L1_map">
-                </div>
-                <div id = "space">
-                </div>
+                <div id = "L1_map"></div>
                 <div id = "L2_map"></div>
             </div>
             
