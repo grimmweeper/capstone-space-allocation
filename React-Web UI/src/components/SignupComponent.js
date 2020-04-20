@@ -192,9 +192,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-// const passwordsMatch = ({ password, cfmpassword }) => {
-//     return password === cfmpassword;
-//   };
+
 
 class Signup extends Component {
 
@@ -278,51 +276,7 @@ class Signup extends Component {
                                         }}
                                      />
                                 </Col>
-                                <Label htmlFor="cfmpassword" md={2}>Confirm Password</Label>
-                                <Col md={{size: 4}}>
-                                <Control.text model=".cfmpassword" id="cfmpassword" name="cfmpassword" type="password"
-                                        placeholder="Confirm Password"
-                                        className="form-control"
-                                        validators={{
-                                            required, minLength: minLength(5), maxLength: maxLength(15)
-                                        }}
-                                         />
-                                    <Errors
-                                        className="text-danger"
-                                        model=".cfmpassword"
-                                        show="touched"
-                                        messages={{
-                                            required: ' Required ',
-                                            minLength: ' Must be greater than 5 characters ',
-                                            maxLength: ' Must be 15 characters or less ',
-                                            passwordsMatch: ' Password do not match '
-                                        }}
-                                     />
-                                </Col>
-                            </Row>
 
-                            <Row className="form-group">
-                                <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
-                                <Col md={10}>
-                                    <Control.text model=".telnum" id="telnum" name="telnum"
-                                        placeholder="Tel. Number"
-                                        className="form-control"
-                                        validators={{
-                                            required, minLength: minLength(8), maxLength: maxLength(8), isNumber
-                                        }}
-                                         />
-                                    <Errors
-                                        className="text-danger"
-                                        model=".telnum"
-                                        show="touched"
-                                        messages={{
-                                            required: ' Required ',
-                                            minLength: ' Must contain 8 digits',
-                                            maxLength: ' Must contain 8 digits ',
-                                            isNumber: ' Must be a number '
-                                        }}
-                                     />
-                                </Col>
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="email" md={2}>Email</Label>

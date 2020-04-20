@@ -75,6 +75,7 @@ class RegisterPage extends React.Component {
                         <div className={'form-group' + (submitted && !user.type ? ' has-error' : '')}>
                             <label htmlFor="type">Type</label>
                             <select className="form-control" className="form-control" name="type" value={user.type} onChange={this.handleChange}>
+                                <option></option>
                                 <option value="admin">Admin</option>
                                 <option value="user">User</option>
                             </select>

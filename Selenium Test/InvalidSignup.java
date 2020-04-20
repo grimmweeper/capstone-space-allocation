@@ -9,14 +9,12 @@ public class InvalidSignup {
 
     static String userName = "tom";
     static String passWord = "abcdef";
-    static String cfmPassWord = "abcdef";
-    static String telNum = "wrongNumber";
     static String email = "fakeemail";
+    static String type = "wrongtype";
 
     public static void main(String[] args) throws InterruptedException {
 
-
-        System.setProperty("webdriver.chrome.driver","D:\\Programs\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver","D:\\Programs\\chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:3000/signup");
@@ -28,14 +26,6 @@ public class InvalidSignup {
         WebElement password = driver.findElement(By.id("password"));
         Thread.sleep(2000);
         password.sendKeys(passWord);
-
-        WebElement cfmpassword = driver.findElement(By.id("cfmpassword"));
-        Thread.sleep(2000);
-        cfmpassword.sendKeys(cfmPassWord);
-
-        WebElement phone = driver.findElement(By.id("telnum"));
-        Thread.sleep(2000);
-        phone.sendKeys(telNum);
 
         WebElement emailField = driver.findElement(By.id("email"));
         Thread.sleep(2000);
