@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Signup from './SignupComponent';
 import Floorplan from './FloorplanComponent';
 import Upload from './UploadComponent';
-import Retrieve from './RetrieveComponent';
 import HomePage  from './HomeComponent';
 import Sidebar from './SidebarComponent';
 
@@ -14,7 +13,6 @@ import { alertActions } from '../redux/AlertActionCreator';
 import { Switch, Route, Redirect, withRouter, Router } from 'react-router-dom'
 import { connect } from 'react-redux';
 
-import { history } from '../helper/history';
 
 
 
@@ -41,7 +39,6 @@ class Main extends Component {
             <PrivateRoute exact path='/signup' component={Signup} />} />
             <PrivateRoute exact path='/floorplan' component={Floorplan} />} />
             <PrivateRoute exact path='/upload' component={Upload} />} />
-            <PrivateRoute exact path='/retrieve' component={Retrieve} />} />
             <PrivateRoute exact path="/" component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
