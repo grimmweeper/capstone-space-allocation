@@ -88,10 +88,13 @@ const getSquares = (req, res, db, st) => {
     }
   }));
   
-  db.withSchema('gis').select('project_no',st.asGeoJSON2('geom'))
+  db.withSchema('gis').select('project_no',
+  'project_name', 'company', 'length', 'width', 'height', 'number_of_power_points_needed',
+  st.asGeoJSON2('geom'))
   .from('squares')
+  .joinRaw('FULL OUTER JOIN escdummy ON project_no = id')
   .whereNot('project_no', '-1')
-  .groupBy('project_no')
+  .groupBy('project_no', 'project_name', 'company', 'length', 'width', 'height', 'number_of_power_points_needed')
   .then(items => {
     console.log(items.length)
     if(items.length){

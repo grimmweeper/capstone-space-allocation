@@ -54,7 +54,10 @@ class Floorplan extends Component {
                 response.json()
                 .then(function(data) {
                     for (let i = 0; i < data.length; i++){
-                        var polydetail = "Project Name: " + data[i].project_no
+                        var polydetail = "<b>" + data[i].project_no + " " + data[i].project_name + "</b>"
+                                + "<br>" + "With " +  data[i].company
+                                + "<br>" + data[i].length + " by " + data[i].width + " by " + data[i].height
+                                + "<br>" + "PowerPoints needed: " + data[i].number_of_power_points_needed
                         var geojson = JSON.parse(data[i].st_asgeojson)
         
                         var coors = geojson.coordinates[0]; //transform to LatLng
