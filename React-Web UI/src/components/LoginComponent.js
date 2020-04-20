@@ -67,7 +67,7 @@ class LoginPage extends React.Component {
                             }
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary" name="register">Login</button>
                             {loggingIn
                             }
                             <Link to="/register" className="btn btn-link">Register</Link>

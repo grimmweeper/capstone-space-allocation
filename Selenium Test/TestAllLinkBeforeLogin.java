@@ -4,11 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TestAllLink {
+public class TestAllLinkBeforeLogin {
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "D:\\Programs\\chromedriver.exe");
+
+        //System.setProperty("webdriver.chrome.driver", "D:\\Programs\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","/C:/Code/web_drivers/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:3000/home");

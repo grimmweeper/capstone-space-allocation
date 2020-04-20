@@ -75,15 +75,15 @@ class RegisterPage extends React.Component {
                         <div className={'form-group' + (submitted && !user.type ? ' has-error' : '')}>
                             <label htmlFor="type">Type</label>
                             <select className="form-control" className="form-control" name="type" value={user.type} onChange={this.handleChange}>
-                                <option>Admin</option>
-                                <option>User</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
                             </select>
                             {submitted && !user.type &&
                                 <div className="help-block">Type is required</div>
                             }
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-primary">Register</button>
+                            <button className="btn btn-primary" name="register">Register</button>
                             {registering}
                             <Link to="/login" className="btn btn-link">Cancel</Link>
                         </div>
