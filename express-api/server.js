@@ -25,6 +25,7 @@ var db = require('knex')({
   client: 'pg',
   connection: {
     host : '127.0.0.1',
+    //host: 'localhost',
     user : 'postgres',
     password : '12345',
     database : 'postgres',
