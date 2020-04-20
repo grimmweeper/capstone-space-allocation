@@ -1,30 +1,6 @@
 import React,{Component} from 'react';
-import L from 'leaflet';
+import L, { marker } from 'leaflet';
 import ReactDOM from 'react-dom';
-
-
-
-
-/*var dataeg = [
-    [
-        [
-            [1.34095,103.96305],
-            [1.34095,103.96300],
-            [1.34090,103.96300],
-            [1.34090,103.96305],
-        ],
-        'This is polygon 1',
-    ],
-    [
-        [
-            [1.34105,103.96305],
-            [1.34105,103.96300],
-            [1.34100,103.96300],
-            [1.34100,103.96305],
-        ],
-        'This is polygon 2',
-    ],
-];*/
 
 
 class Floorplan extends Component {
@@ -45,6 +21,17 @@ class Floorplan extends Component {
             zoomControl: false,
         });
 
+        // generate random color
+        function getColor(){
+            var color = '#';
+            var letter = '0123456789ABCDEF';
+            for (var i =0; i < 6;i++){
+                color += letter[Math.floor(Math.random()*16)];
+            }
+            return color;
+        }
+        
+        //create tilelayer for the map
         L.tileLayer('https://api.mapbox.com/styles/v1/pluying/ck84heeuz6eij1is0i361ued0/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGx1eWluZyIsImEiOiJjazgycHJ2aWEwb3VkM2VxcTE1dmJ4cHJsIn0.4TzOMB_v_aekafcxXa9-tg',{
             minZoom:0,
             maxZoom:22,
@@ -52,56 +39,85 @@ class Floorplan extends Component {
             continuousWorld:false,
         }).addTo(map);
 
-        var that = this;
+        //fetch project data and display
         fetch('http://localhost:3001/getSquares')
             .then(function(response){
                 response.json()
                     .then(function(data) {
                         // debugger
-                        // that.setState({
-                        //     datalist: data 
-                        // })
-                        // console.log(data);
-                        // console.log("datalist",that.state.datalist[0]);
-
-                        // for (var i =0; i < that.state.datalist.length;i++){
-                        //     var polydata = [
-                        //         [that.state.datalist[i].p1.x,that.state.datalist[i].p1.y],
-                        //         [that.state.datalist[i].p2.x,that.state.datalist[i].p2.y],
-                        //         [that.state.datalist[i].p3.x,that.state.datalist[i].p3.y],
-                        //         [that.state.datalist[i].p4.x,that.state.datalist[i].p4.y],
-                        //     ]
-
                             for (let i = 0; i < data.length; i++){
                                 // debugger
                                 var polydetail = "Project Name: " + data[i].project_name
-                                            // +"Type of Prototype: " + JSON.parse(data[i].st_asgeojson)
-                                
-                                // new L.Polygon(JSON.parse(data[i].st_asgeojson),{
-                                //     draggable: 'true',
-                                //     color: 'red',
-                                // })
+                                var geojson = JSON.parse(data[i].st_asgeojson);
+                                //console.log(geojson.coordinates)
+                                //transform to LatLng
+                                var coors = geojson.coordinates[0];
+                                //console.log(coors);
+                                var latlng = [];
+                                for (var j=0; j<coors.length;j++){
+                                    var temp = [coors[j][1],coors[j][0]]
+                                    latlng.push(temp);
+                                }
+                                //console.log(latlng);
 
-                                L.geoJSON(JSON.parse(data[i].st_asgeojson))
+                                /*const geojsonFeature = {
+                                    type: 'Feature',
+                                    properties: {},
+                                    geometry: {
+                                      type: 'Polygon',
+                                      coordinates: geojson.coordinates,
+                                    }
+                                };*/
+                                
+
+                                var polygon = L.polygon(latlng,{
+                                    draggable: 'true',
+                                    color: getColor(),
+                                })
                                 .bindPopup(polydetail)
-                                .addTo(map)
-                                // debugger
+                                .addTo(map);
+
+                                //var marker = L.marker(polygon.getCenter()).addTo(map);
+                                //console.log(polygon.getBounds());
+                                polygon.on('dragend',function(e){
+                                    console.log(e.getLatLngs)
+                                    var attri = polygon.getLatLngs();
+                                    console.log(attri);
+                                })
+                                map.on('click',function(e){
+                                    console.log('click'+e.latlng);
+                                })
+
+                                /*L.geoJSON(JSON.parse(data[i].st_asgeojson),{
+                                    style: function(feature){
+                                        return{
+                                            color: getColor(),
+                                            
+                                        }
+                                    }, 
+                                    onEachFeature: function(feature,layer){
+                                        layer.on('mousedown',function(){
+                                            //feature.dragging.disable();
+                                            map.on('mousemove',function(e){
+                                                //layer.
+                                            })
+                                            console.log("map disable")
+                                       })
+                                    }
+                                })
+                                .bindPopup(polydetail)
+                                .addTo(map)*/
+
+
                             }
 
                     })
             })
 
-
-        map.on('click',function(e){
-            console.log('click',e);
-        })
-
-
     }
 
     render(){
         return (
-
             <div className = "map">
             </div>
         )

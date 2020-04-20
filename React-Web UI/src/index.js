@@ -6,6 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-path-drag';
+import 'leaflet-truesize';
 
 
 ReactDOM.render(<App />, document.getElementById('root'));

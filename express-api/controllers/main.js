@@ -93,6 +93,7 @@ const getSquares = (req, res, db, st) => {
   .whereNot('project_no', '-1')
   .groupBy('project_no')
   .then(items => {
+    console.log(items.length)
     if(items.length){
       res.json(items)
     } else {
