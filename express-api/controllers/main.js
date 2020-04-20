@@ -93,6 +93,7 @@ const getSquares = (req, res, db, st) => {
   .whereNot('project_no', '-1')
   .groupBy('project_no')
   .then(items => {
+    console.log(items.length)
     if(items.length){
       res.json(items)
     } else {
@@ -114,7 +115,12 @@ const clearSquares = (req, res, db) => {
 }
 
 const allocateSquares = async(req, res, db, st) => {
-  
+
+  db('squares').withSchema('gis')
+  .update({
+    project_no : '-1',
+  }).catch(err => res.status(400).json({dbError: 'db error'}))
+
   let data = await db.select('*').from('escdummy')
   .where('height', '<', 50)
   .orderByRaw('length+width DESC')
