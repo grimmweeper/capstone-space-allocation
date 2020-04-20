@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import L, { marker } from 'leaflet';
 import ReactDOM from 'react-dom';
 import 'leaflet.sync';
+import 'leaflet-easyprint';
 
 
 class Floorplan extends Component {
@@ -17,6 +18,15 @@ class Floorplan extends Component {
         console.log("Component has mounted")
 
         var L1_map = this.L1_map = new L.map('L1_map').setView([1.34090,103.96315], 20)
+
+        L.easyPrint({
+            title: 'Export as PNG',
+            position: 'bottomright',
+            sizeModes: ['A4Landscape'],
+            exportOnly: true,
+            filename: 'Capstone-floorplan-L1'
+        }).addTo(L1_map);
+
 
         // generate random color
         function getColor(){
@@ -87,10 +97,14 @@ class Floorplan extends Component {
     render(){
         return (
             <div className = "map">
-                <div id = "L1_map"></div>
-                <div id = "space"></div>
+
+                <div id = "L1_map">
+                </div>
+                <div id = "space">
+                </div>
                 <div id = "L2_map"></div>
             </div>
+            
         )
     }
 
