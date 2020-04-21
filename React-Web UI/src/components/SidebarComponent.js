@@ -97,7 +97,7 @@ function Sidebar()
             <button title='Allocate' type ="submit"className="sidebutton" onClick = { allocateSquares }><i className="fa fa-clone"></i></button>
             <button title='Clear' type = "submit" className="sidebutton" onClick = { clearSquares }><i className="fa fa-trash"></i></button>
             <button title='Save' className="sidebutton"><i className="fa fa-save"></i></button>
-            <button title='Login' type = "submit" className="sidebutton" onClick = { goOut }><i className="fa fa-sign-out"></i></button>
+            <button title='Logout' type = "submit" className="sidebutton" onClick = { goOut }><i className="fa fa-sign-out"></i></button>
         </div>
     );
 }

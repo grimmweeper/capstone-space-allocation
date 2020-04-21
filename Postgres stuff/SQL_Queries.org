@@ -9,6 +9,18 @@ ON ST_Intersects(gis.ccl1_pits.geom, gis.squares_l1_05m.geom)
 WHERE gis.ccl1_pits.gid IS NULL
 AND gis.squares_l1_05m.project_no != -1
 
+* New select
+SELECT project_no, ST_AsGeoJson(ST_Union(geom)) FROM gis.squares
+WHERE gis.squares.project_no != '-1'
+group by project_no
+
+* Anoterh select 
+SELECT project_no, project_name, company, length, width, height, number_of_power_points_needed, ST_AsGeoJson(ST_Union(geom)) FROM gis.squares
+FULL OUTER JOIN escdummy
+ON project_no = id
+WHERE gis.squares.project_no != '-1'
+group by project_no, project_name, company, length, width, height, number_of_power_points_needed
+
 * NOT DONE : Return T/F based on contains 
 SELECT *
 FROM gis.ccl1 LEFT JOIN gis.squares_l1_05m

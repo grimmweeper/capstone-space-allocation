@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 import L, { marker } from 'leaflet';
 import ReactDOM from 'react-dom';
 import 'leaflet.sync';
-
+import 'leaflet-easyprint';
+import 'leaflet-path-transform';
 
 class Floorplan extends Component {
 
@@ -17,6 +18,15 @@ class Floorplan extends Component {
         console.log("Component has mounted")
 
         var L1_map = this.L1_map = new L.map('L1_map').setView([1.34090,103.96315], 20)
+
+        L.easyPrint({
+            title: 'Export as PNG',
+            position: 'bottomright',
+            sizeModes: ['A4Landscape'],
+            exportOnly: true,
+            filename: 'Capstone-floorplan-L1'
+        }).addTo(L1_map);
+
 
         // generate random color
         function getColor(){
@@ -40,30 +50,33 @@ class Floorplan extends Component {
         //fetch project data and display
 
         fetch('http://localhost:3001/getSquares')
-            .then(function(response){
-                response.json()
-                .then(function(data) {
-                    for (let i = 0; i < data.length; i++){
-                        var polydetail = "Project Name: " + data[i].project_no
-                        var geojson = JSON.parse(data[i].st_asgeojson)
-        
-                        var coors = geojson.coordinates[0]; //transform to LatLng
-                        var latlng = [];
-                        for (var j=0; j<coors.length;j++){
-                            var temp = [coors[j][1],coors[j][0]]
-                            latlng.push(temp);
-                        }
+        .then(function(response){
+            response.json()
+            .then(function(data) {
+                for (let i = 0; i < data.length; i++){
+                    var polydetail = "<b>" + data[i].project_no + " " + data[i].project_name + "</b>"
+                            + "<br>" + "With " +  data[i].company
+                            + "<br>" + data[i].length + " by " + data[i].width + " by " + data[i].height
+                            + "<br>" + "PowerPoints needed: " + data[i].number_of_power_points_needed
+                    var geojson = JSON.parse(data[i].st_asgeojson)
+    
+                    var coors = geojson.coordinates[0]; //transform to LatLng
+                    var latlng = [];
+                    for (var j=0; j<coors.length;j++){
+                        var temp = [coors[j][1],coors[j][0]]
+                        latlng.push(temp);
+                    }
 
-                        var polygon = L.polygon(latlng,{
-                            draggable: 'true',
-                            color: getColor(),
-                        })
-                        .bindPopup(polydetail)
-                        .addTo(L1_map);
-
-                        L1_map.on('click',function(e){
-                            console.log('click'+e.latlng);
+                    var polygon = L.polygon(latlng,{
+                        draggable: 'true',
+                        transform: 'true',
+                        color: getColor(),
                     })
+                    .bindPopup(polydetail)
+                    .bindTooltip(data[i].project_no, { draggable:true, direction:"center"})
+                    .addTo(L1_map);
+
+                    polygon.transform.enable({rotation: true, scaling: false})
                 }
             })
         })
@@ -77,6 +90,14 @@ class Floorplan extends Component {
             continuousWorld:false,
         }).addTo(L2_map);
 
+        L.easyPrint({
+            title: 'Export as PNG',
+            position: 'bottomright',
+            sizeModes: ['A4Landscape'],
+            exportOnly: true,
+            filename: 'Capstone-floorplan-L2'
+        }).addTo(L2_map);
+
         L1_map.sync(L2_map);
         L2_map.sync(L1_map);
 
@@ -88,9 +109,9 @@ class Floorplan extends Component {
         return (
             <div className = "map">
                 <div id = "L1_map"></div>
-                <div id = "space"></div>
                 <div id = "L2_map"></div>
             </div>
+            
         )
     }
 

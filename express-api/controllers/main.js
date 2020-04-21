@@ -25,6 +25,7 @@ const postTableData = async (req, res, db) => {
         t.float('length');
         t.float('width');
         t.float('height');
+        t.integer('level');
         t.integer('number_of_power_points_needed');
         t.date('date_added');
       })
@@ -37,9 +38,9 @@ const postTableData = async (req, res, db) => {
 
   // Insert values from CSV
   for (let i = 0; i < req.body.length; i++) {
-    const { id, company, project_name, type_of_prototype, length, width, height, number_of_power_points_needed } = req.body[i]
+    const { id, company, project_name, type_of_prototype, length, width, height, level, number_of_power_points_needed } = req.body[i]
     const date_added = new Date()
-    db('escdummy').insert({id, company, project_name, type_of_prototype, length, width, height, number_of_power_points_needed, date_added})
+    db('escdummy').insert({id, company, project_name, type_of_prototype, length, width, height, level, number_of_power_points_needed, date_added})
     .returning('*')
     .then(item => {
       res.json(item)
@@ -50,12 +51,12 @@ const postTableData = async (req, res, db) => {
   
 const putTableData = (req, res, db) => {
   for (let i = 0; i < req.body.length; i++) {
-    const { id, company, project_name, type_of_prototype, length, width, height, number_of_power_points_needed } = req.body[i]
+    const { id, company, project_name, type_of_prototype, length, width, height, level, number_of_power_points_needed } = req.body[i]
     const date_added = new Date()
     db('escdummy').where({
       id: id
     })
-    .update({id, company, project_name, type_of_prototype, length, width, height, number_of_power_points_needed, date_added})
+    .update({id, company, project_name, type_of_prototype, length, width, height, level, number_of_power_points_needed, date_added})
     .returning('*')
     .then(item => {
       res.json(item)
@@ -88,10 +89,13 @@ const getSquares = (req, res, db, st) => {
     }
   }));
   
-  db.withSchema('gis').select('project_no',st.asGeoJSON2('geom'))
+  db.withSchema('gis').select('project_no',
+  'project_name', 'company', 'length', 'width', 'height', 'level', 'number_of_power_points_needed',
+  st.asGeoJSON2('geom'))
   .from('squares')
+  .joinRaw('FULL OUTER JOIN escdummy ON project_no = id')
   .whereNot('project_no', '-1')
-  .groupBy('project_no')
+  .groupBy('project_no', 'project_name', 'company', 'length', 'width', 'height', 'level', 'number_of_power_points_needed')
   .then(items => {
     console.log(items.length)
     if(items.length){
@@ -163,8 +167,27 @@ const allocateSquares = async(req, res, db, st) => {
         success = true
       } 
       else {
-        // res.json({test: 'failure'})
-        success = false 
+        //Try change rotation (Horizontal -> Vertical)
+        let count = await db.withSchema('gis').count('a','b').from('squares')
+        .where('project_no', -1)
+        .whereBetween('b', [random_a, random_a + i -1])
+        .whereBetween('a', [random_b, random_b + j -1])
+        .catch(err => res.status(400).json({dbError: 'db error'}))
+  
+        if (parseInt(count[0].count) == i*j){ //update if all values are available
+          
+          await db('squares').withSchema('gis').update({
+            project_no : data[p].id
+          })
+          .whereBetween('b', [random_a, random_a + i -1])
+          .whereBetween('a', [random_b, random_b + j -1])
+          .catch(err => res.status(400).json({dbError: 'db error'}))
+          success = true
+        }
+        else{
+        // res.json({test: 'failure })
+          success = false 
+        }
       }
     }
   }
