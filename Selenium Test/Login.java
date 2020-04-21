@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class UploadFeature {
+public class Login {
 
     static String username = "liying";
     static String password = "liying";
@@ -19,7 +19,7 @@ public class UploadFeature {
         driver.get("http://localhost:3000");
         Thread.sleep(2000);
 
-        // Login to access other components
+        // Login with valid username and password
         WebElement usernameField = driver.findElement(By.name("username"));
         Thread.sleep(2000);
         usernameField.sendKeys(username);
@@ -31,21 +31,6 @@ public class UploadFeature {
         WebElement loginButton = driver.findElement(By.name("login"));
         loginButton.click();
         Thread.sleep(2000);
-
-        driver.switchTo().alert().accept();
-        Thread.sleep(2000);
-
-        // Upload csv file
-        WebElement button = driver.findElement(By.name("uploadPage"));
-        button.click();
-        Thread.sleep(2000);
-
-        WebElement uploadElement = driver.findElement(By.className("csv-input"));
-        //uploadElement.sendKeys("D:\\Projects\\react\\space-allocation\\refinedcsv.csv");
-        uploadElement.sendKeys("C:\\Code\\ESC\\capstone-space-allocation\\refinedcsv.csv");
-        Thread.sleep(4000);
-
-        WebElement uploadButton = driver.findElement(By.id("uploadBtn"));
-        uploadButton.click();
     }
+
 }

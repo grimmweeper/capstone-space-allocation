@@ -5,12 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class InvalidSignupType {
+public class LoginInjectionUsername {
 
-    static String username = "tom";
-    static String password = "abcdef";
-    static String email = "tom@gmail.com";
-    static String type = "wrongtype";
+    static String validUsernameInjection = "liying' OR '0'='0";
+    static String anyPassword = "anything";
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -18,29 +16,21 @@ public class InvalidSignupType {
         System.setProperty("webdriver.chrome.driver","C:\\Code\\web_drivers\\chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:3000/signup");
+        driver.get("http://localhost:3000");
         Thread.sleep(2000);
 
-        WebElement registerButton1 = driver.findElement(By.name("register"));
-        Thread.sleep(2000);
-        registerButton1.click();
-
+        // Login with valid username and any password
         WebElement usernameField = driver.findElement(By.name("username"));
         Thread.sleep(2000);
-        usernameField.sendKeys(username);
+        usernameField.sendKeys(validUsernameInjection);
 
         WebElement passwordField = driver.findElement(By.name("password"));
         Thread.sleep(2000);
-        passwordField.sendKeys(password);
+        passwordField.sendKeys(anyPassword);
 
-        WebElement emailField = driver.findElement(By.name("email"));
-        Thread.sleep(2000);
-        emailField.sendKeys(email);
-
-        // Don't choose any type
-
-        WebElement registerButton2 = driver.findElement(By.name("register"));
-        registerButton2.click();
+        WebElement loginButton = driver.findElement(By.name("login"));
+        loginButton.click();
         Thread.sleep(2000);
     }
+
 }

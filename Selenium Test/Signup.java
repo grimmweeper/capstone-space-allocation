@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Signup {
 
-    static String[] usernames = {"david", "wee ping"};
+    static String[] usernames = {"david", "wee_ping"};
     static String[] passwords = {"123456", "password12345"};
     static String[] emails = {"david@gmail.com", "wee_ping@gmail.com"};
     static String[] types = {"admin", "user"};
