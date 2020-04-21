@@ -34,8 +34,12 @@ shp2pgsql -s 4326 -I 'CCL1_pits.shp' gis.CCL1_pits | psql -d postgres -U postgre
 
 shp2pgsql -s 4326 -I 'squares_l1_05m_new1.shp' gis.squares_l1_05m | psql -d postgres -U postgres
 
+shp2pgsql -s 4326 -I 'CCL2.shp' gis.CCL2 | psql -d postgres -U postgres
+
+shp2pgsql -s 4326 -I 'CCL2_pits.shp' gis.CCL2_pits | psql -d postgres -U postgres
+
 psql -d postgres -c "
-CREATE TABLE gis.squares as
+CREATE TABLE gis.squares1 as
  SELECT squares_l1_05m.gid,
     squares_l1_05m.project_no,
     squares_l1_05m.a,
@@ -46,5 +50,18 @@ CREATE TABLE gis.squares as
      LEFT JOIN gis.ccl1_pits ON st_intersects(ccl1_pits.geom, squares_l1_05m.geom)
   WHERE ccl1_pits.gid IS NULL;"
 
+psql -d postgres -c "
+CREATE TABLE gis.squares2 as
+ SELECT squares_l1_05m.gid,
+    squares_l1_05m.project_no,
+    squares_l1_05m.a,
+    squares_l1_05m.b,
+    squares_l1_05m.geom
+   FROM gis.ccl2
+     LEFT JOIN gis.squares_l1_05m ON st_contains(ccl2.geom, squares_l1_05m.geom)
+     LEFT JOIN gis.ccl2_pits ON st_intersects(ccl2_pits.geom, squares_l1_05m.geom)
+  WHERE ccl2_pits.gid IS NULL;"
 
-ALTER TABLE gis.squares ADD PRIMARY KEY (gid);
+
+ALTER TABLE gis.squares1 ADD PRIMARY KEY (gid);
+ALTER TABLE gis.squares2 ADD PRIMARY KEY (gid);

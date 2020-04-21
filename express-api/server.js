@@ -73,7 +73,8 @@ app.put('/put', (req, res) => main.putTableData(req, res, db))
 app.delete('/delete', (req, res) => main.deleteTableData(req, res, db))
 
 //Allocate squares
-app.get('/getSquares', (req, res) => main.getSquares(req, res, db, st))
+app.get('/getSquaresL1', (req, res) => main.getSquaresL1(req, res, db, st))
+app.get('/getSquaresL2', (req, res) => main.getSquaresL2(req, res, db, st))
 app.get('/clearSquares', (req, res) => main.clearSquares(req, res, db))
 app.get('/allocateSquares', (req, res) => main.allocateSquares(req, res, db, st))
 

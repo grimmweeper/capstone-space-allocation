@@ -82,7 +82,7 @@ const deleteTableData = (req, res, db) => {
     .catch(err => res.status(400).json({dbError: 'db error'}))
 }
 
-const getSquares = (req, res, db, st) => {
+const getSquaresL1 = (req, res, db, st) => {
   db.postgisDefineExtras((knex, formatter) => ({  
     asGeoJSON2(col) { // Not exactly sure why st.asGeoJSON won't build the query right
       return knex.raw('ST_asGeoJSON(ST_UNION(?))', [formatter.wrapWKT(col)]);
@@ -92,7 +92,32 @@ const getSquares = (req, res, db, st) => {
   db.withSchema('gis').select('project_no',
   'project_name', 'company', 'length', 'width', 'height', 'level', 'number_of_power_points_needed',
   st.asGeoJSON2('geom'))
-  .from('squares')
+  .from('squares1')
+  .joinRaw('FULL OUTER JOIN escdummy ON project_no = id')
+  .whereNot('project_no', '-1')
+  .groupBy('project_no', 'project_name', 'company', 'length', 'width', 'height', 'level', 'number_of_power_points_needed')
+  .then(items => {
+    console.log(items.length)
+    if(items.length){
+      res.json(items)
+    } else {
+      res.json({dataExists: 'false'})
+    }
+  })
+  .catch(err => res.status(400).json({dbError: 'db error'}))
+}
+
+const getSquaresL2 = (req, res, db, st) => {
+  db.postgisDefineExtras((knex, formatter) => ({  
+    asGeoJSON2(col) { // Not exactly sure why st.asGeoJSON won't build the query right
+      return knex.raw('ST_asGeoJSON(ST_UNION(?))', [formatter.wrapWKT(col)]);
+    }
+  }));
+  
+  db.withSchema('gis').select('project_no',
+  'project_name', 'company', 'length', 'width', 'height', 'level', 'number_of_power_points_needed',
+  st.asGeoJSON2('geom'))
+  .from('squares2')
   .joinRaw('FULL OUTER JOIN escdummy ON project_no = id')
   .whereNot('project_no', '-1')
   .groupBy('project_no', 'project_name', 'company', 'length', 'width', 'height', 'level', 'number_of_power_points_needed')
@@ -108,28 +133,33 @@ const getSquares = (req, res, db, st) => {
 }
 
 const clearSquares = (req, res, db) => {
-  db('squares').withSchema('gis')
+  db('squares1').withSchema('gis')
   .update({
     project_no : '-1',
   })
-  .then(items => {
-      res.json({Update: 'true'})
+  .catch(err => res.status(400).json({dbError: 'db error'}))
+
+  db('squares2').withSchema('gis')
+  .update({
+    project_no : '-1',
   })
   .catch(err => res.status(400).json({dbError: 'db error'}))
+
+  res.json({Update: 'true'})
 }
 
 const allocateSquares = async(req, res, db, st) => {
 
-  db('squares').withSchema('gis')
+  db('squares1').withSchema('gis')
   .update({
     project_no : '-1',
   }).catch(err => res.status(400).json({dbError: 'db error'}))
 
   let data = await db.select('*').from('escdummy')
   .where('height', '<', 50)
+  .andWhere('level', 1)
   .orderByRaw('length+width DESC')
-  .limit(25)
-  .catch(err => res.status(400).json({dbError: 'db error'}))  
+  .catch(err => res.status(400).json({dbError: 'db error'}))
 
   // 1. randomly select a row
   // 2. check if has all we need
@@ -141,7 +171,7 @@ const allocateSquares = async(req, res, db, st) => {
       let i = parseInt(data[p].length/0.5)
       let j = parseInt(data[p].width/0.5)
 
-      let random = await db.withSchema('gis').select('*').from('squares')
+      let random = await db.withSchema('gis').select('*').from('squares1')
       .where('project_no', -1)
       .orderByRaw('random()')
       .limit(1)
@@ -150,7 +180,7 @@ const allocateSquares = async(req, res, db, st) => {
       let random_a = parseInt(random[0].a)
       let random_b = parseInt(random[0].b)
 
-      let count = await db.withSchema('gis').count('a','b').from('squares')
+      let count = await db.withSchema('gis').count('a','b').from('squares1')
       .where('project_no', -1)
       .whereBetween('a', [random_a, random_a + i -1])
       .whereBetween('b', [random_b, random_b + j -1])
@@ -158,7 +188,7 @@ const allocateSquares = async(req, res, db, st) => {
 
       if (parseInt(count[0].count) == i*j){ //update if all values are available
         
-        await db('squares').withSchema('gis').update({
+        await db('squares1').withSchema('gis').update({
           project_no : data[p].id
         })
         .whereBetween('a', [random_a, random_a + i -1])
@@ -168,7 +198,7 @@ const allocateSquares = async(req, res, db, st) => {
       } 
       else {
         //Try change rotation (Horizontal -> Vertical)
-        let count = await db.withSchema('gis').count('a','b').from('squares')
+        let count = await db.withSchema('gis').count('a','b').from('squares1')
         .where('project_no', -1)
         .whereBetween('b', [random_a, random_a + i -1])
         .whereBetween('a', [random_b, random_b + j -1])
@@ -176,8 +206,77 @@ const allocateSquares = async(req, res, db, st) => {
   
         if (parseInt(count[0].count) == i*j){ //update if all values are available
           
-          await db('squares').withSchema('gis').update({
+          await db('squares1').withSchema('gis').update({
             project_no : data[p].id
+          })
+          .whereBetween('b', [random_a, random_a + i -1])
+          .whereBetween('a', [random_b, random_b + j -1])
+          .catch(err => res.status(400).json({dbError: 'db error'}))
+          success = true
+        }
+        else{
+        // res.json({test: 'failure })
+          success = false 
+        }
+      }
+    }
+  }
+
+  db('squares2').withSchema('gis')
+  .update({
+    project_no : '-1',
+  }).catch(err => res.status(400).json({dbError: 'db error'}))
+
+  let data2 = await db.select('*').from('escdummy')
+  .where('height', '<', 50)
+  .andWhere('level', 2)
+  .orderByRaw('length+width DESC')
+  .catch(err => res.status(400).json({dbError: 'db error'}))
+
+  for (let p = 0; p < data2.length; p++){
+    let success = false;
+    while (!success){
+
+      let i = parseInt(data2[p].length/0.5)
+      let j = parseInt(data2[p].width/0.5)
+
+      let random = await db.withSchema('gis').select('*').from('squares2')
+      .where('project_no', -1)
+      .orderByRaw('random()')
+      .limit(1)
+      .catch(err => res.status(400).json({dbError: 'db error'}))
+
+      let random_a = parseInt(random[0].a)
+      let random_b = parseInt(random[0].b)
+
+      let count = await db.withSchema('gis').count('a','b').from('squares2')
+      .where('project_no', -1)
+      .whereBetween('a', [random_a, random_a + i -1])
+      .whereBetween('b', [random_b, random_b + j -1])
+      .catch(err => res.status(400).json({dbError: 'db error'}))
+
+      if (parseInt(count[0].count) == i*j){ //update if all values are available
+        
+        await db('squares2').withSchema('gis').update({
+          project_no : data2[p].id
+        })
+        .whereBetween('a', [random_a, random_a + i -1])
+        .whereBetween('b', [random_b, random_b + j -1])
+        .catch(err => res.status(400).json({dbError: 'db error'}))
+        success = true
+      } 
+      else {
+        //Try change rotation (Horizontal -> Vertical)
+        let count = await db.withSchema('gis').count('a','b').from('squares2')
+        .where('project_no', -1)
+        .whereBetween('b', [random_a, random_a + i -1])
+        .whereBetween('a', [random_b, random_b + j -1])
+        .catch(err => res.status(400).json({dbError: 'db error'}))
+  
+        if (parseInt(count[0].count) == i*j){ //update if all values are available
+          
+          await db('squares2').withSchema('gis').update({
+            project_no : data2[p].id
           })
           .whereBetween('b', [random_a, random_a + i -1])
           .whereBetween('a', [random_b, random_b + j -1])
@@ -274,7 +373,8 @@ const allocateSquares = async(req, res, db, st) => {
     deleteTableData,
     registerUserData,
     getUserData,
-    getSquares,
+    getSquaresL1,
+    getSquaresL2,
     clearSquares,
     allocateSquares
   }
