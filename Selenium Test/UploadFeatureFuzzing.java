@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;;
 
-public class FailedUpload {
+public class UploadFeatureFuzzing {
 
     static String username = "david";
     static String password = "123456";

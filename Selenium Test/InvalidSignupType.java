@@ -5,17 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class InvalidSignup {
+public class InvalidSignupType {
 
     static String username = "tom";
     static String password = "abcdef";
-    static String email = "fakeemail";
+    static String email = "tom@gmail.com";
     static String type = "wrongtype";
 
     public static void main(String[] args) throws InterruptedException {
 
         //System.setProperty("webdriver.chrome.driver","D:\\Programs\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver","/C:/Code/web_drivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:\\Code\\web_drivers\\chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:3000/signup");

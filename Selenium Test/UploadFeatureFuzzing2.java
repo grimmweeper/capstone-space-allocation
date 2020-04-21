@@ -4,9 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-;
-
-public class UploadFeature2 {
+public class UploadFeatureFuzzing2 {
 
     static String username = "david";
     static String password = "123456";
@@ -73,7 +71,7 @@ public class UploadFeature2 {
 
         WebElement uploadElement = driver.findElement(By.className("csv-input"));
         //uploadElement.sendKeys("D:\\Projects\\react\\space-allocation\\errorcsv.csv");
-        uploadElement.sendKeys("C:\\Code\\ESC\\capstone-space-allocation\\errorcsv.csv");
+        uploadElement.sendKeys("C:\\Code\\ESC\\capstone-space-allocation\\fuzzing2csv.csv");
         Thread.sleep(4000);
 
         WebElement uploadButton = driver.findElement(By.id("uploadBtn"));

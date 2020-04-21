@@ -16,7 +16,7 @@ public class Signup {
     public static void main(String[] args) throws InterruptedException {
 
         //System.setProperty("webdriver.chrome.driver","D:\\Programs\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver","/C:/Code/web_drivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:\\Code\\web_drivers\\chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:3000");
@@ -46,6 +46,11 @@ public class Signup {
 
             WebElement registerButton2 = driver.findElement(By.name("register"));
             registerButton2.click();
+            Thread.sleep(2000);
+
+            // Click ok on the alert message
+            driver.switchTo().alert().accept();
+            Thread.sleep(2000);
 
         }
     }

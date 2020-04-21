@@ -93,7 +93,7 @@ function Sidebar()
 
             <button title='Home' type = "submit" className="sidebutton" onClick = { goHome }><i className="fa fa-home"></i></button>
             <button title='Map' type = "submit" className="sidebutton" onClick = { goMap }><i className="fa fa-map"></i></button>
-            <button title='Upload CSV' type = "submit" className="sidebutton" onClick = { goUpload }><i className="fa fa-upload"></i></button>
+            <button title='Upload CSV' type = "submit" className="sidebutton" name="uploadPage" onClick = { goUpload }><i className="fa fa-upload"></i></button>
             <button title='Allocate' type ="submit"className="sidebutton" onClick = { allocateSquares }><i className="fa fa-clone"></i></button>
             <button title='Clear' type = "submit" className="sidebutton" onClick = { clearSquares }><i className="fa fa-trash"></i></button>
             <button title='Save' className="sidebutton"><i className="fa fa-save"></i></button>
