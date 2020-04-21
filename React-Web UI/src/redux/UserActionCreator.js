@@ -30,7 +30,7 @@ function login(user) {
                 localStorage.setItem('user', JSON.stringify(user));
                 alert('Login Successful');
                 dispatch(success(user));
-                history.push('/home');
+                history.push('/floorplan');
                 dispatch(alertActions.success('Login Successful'));
             }
             else {

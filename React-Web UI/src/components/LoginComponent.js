@@ -49,7 +49,8 @@ class LoginPage extends React.Component {
         const { user, submitted } = this.state;
         return (
             <div className = "container">
-                <div className="col-md-6 col-md-offset-3">
+                <div className = "boxdiv">
+                <div className="col-md-12 col-md-offset-3">
                     <h2>Login</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
@@ -73,6 +74,7 @@ class LoginPage extends React.Component {
                             <Link to="/register" className="btn btn-link" name="register">Register</Link>
                         </div>
                     </form>
+                </div>
                 </div>
             </div>
 

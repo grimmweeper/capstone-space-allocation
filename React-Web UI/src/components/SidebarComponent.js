@@ -28,9 +28,9 @@ let allocateSquares = () => {
             }
         })
         .then(response => {
-            var data = response.json();
+            //var data = response.json();
             //this.setState({data:data});
-            console.log("state", data);
+            //console.log("state", data);
         })
     }
 
@@ -91,12 +91,12 @@ function Sidebar()
         <div className="sidenav">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 
-            <button title='Home' type = "submit" className="sidebutton" name="homePage" onClick = { goHome }><i className="fa fa-home"></i></button>
+            {/* <button title='Home' type = "submit" className="sidebutton" name="homePage" onClick = { goHome }><i className="fa fa-home"></i></button> */}
             <button title='Map' type = "submit" className="sidebutton" name="mapPage" onClick = { goMap }><i className="fa fa-map"></i></button>
             <button title='Upload CSV' type = "submit" className="sidebutton" name="uploadPage" onClick = { goUpload }><i className="fa fa-upload"></i></button>
             <button title='Allocate' type ="submit" className="sidebutton" name="allocatePage" onClick = { allocateSquares }><i className="fa fa-clone"></i></button>
             <button title='Clear' type = "submit" className="sidebutton" name="clearPage" onClick = { clearSquares }><i className="fa fa-trash"></i></button>
-            <button title='Save' className="sidebutton" name="savePage"><i className="fa fa-save"></i></button>
+            {/* <button title='Save' className="sidebutton" name="savePage"><i className="fa fa-save"></i></button> */}
             <button title='Logout' type = "submit" className="sidebutton" name="logoutPage" onClick = { goOut }><i className="fa fa-sign-out"></i></button>
         </div>
     );

@@ -40,7 +40,7 @@ class Upload extends Component {
         }).then(response => {
             if (response.ok) {
                 //success alert message
-                alert('POST SUCCESS');
+                alert('Upload is successful.');
             }
             else {
                 //error alert message
@@ -53,19 +53,24 @@ class Upload extends Component {
     render() {
         return(
             <div className="container">
+                <div className = "boxdiv">
+                <div className="col-md-6 col-md-offset-3">
+                    <h3>Upload CSV</h3>
+                    <br></br>
                 <CSVReader
                     cssClass="react-csv-input"
-                    label="Upload CSV with requirement details"
                     onFileLoaded={this.uploadCSV}
                     parserOptions={papaparseOptions}
+                    inputStyle={{color: 'black'}}
                 />
+                <br></br>
                 <Row className="form-group">
-                    <Col md={{size:10}}>
                         <Button id = "uploadBtn" type="submit" color="primary" onClick = { this.postCSV }>
                         Upload
                         </Button>
-                    </Col>
                 </Row>
+                </div>
+                </div>
             </div>
         );
     }

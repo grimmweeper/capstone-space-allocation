@@ -48,7 +48,8 @@ class RegisterPage extends React.Component {
         const { user, submitted } = this.state;
         return (
             <div className = "container">
-                <div className="col-md-6 col-md-offset-3">
+                <div className = "boxdiv">
+                <div className="col-md-12 col-md-offset-3">
                     <h2>Register</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
@@ -89,6 +90,7 @@ class RegisterPage extends React.Component {
                             <Link to="/login" className="btn btn-link">Cancel</Link>
                         </div>
                     </form>
+                </div>
                 </div>
             </div>
             
