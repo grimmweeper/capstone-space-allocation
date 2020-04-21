@@ -78,6 +78,8 @@ app.get('/getSquaresL2', (req, res) => main.getSquaresL2(req, res, db, st))
 app.get('/clearSquares', (req, res) => main.clearSquares(req, res, db))
 app.get('/allocateSquares', (req, res) => main.allocateSquares(req, res, db, st))
 
+app.get('/getLevel1', (req, res) => main.getLevel1(req, res, db, st))
+app.get('/getLevel2', (req, res) => main.getLevel2(req, res, db, st))
 
 //User registration and login
 app.post('/register', (req, res) => main.registerUserData(req, res, db))

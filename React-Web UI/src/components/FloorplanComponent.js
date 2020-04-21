@@ -39,14 +39,21 @@ class Floorplan extends Component {
         }
         
         //create tilelayer for the map
-        L.tileLayer('https://api.mapbox.com/styles/v1/pluying/ck84heeuz6eij1is0i361ued0/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGx1eWluZyIsImEiOiJjazgycHJ2aWEwb3VkM2VxcTE1dmJ4cHJsIn0.4TzOMB_v_aekafcxXa9-tg',{
+        L.tileLayer('https://api.mapbox.com/styles/v1/pluying/ck99ze9ud0tcz1ipdtata0kkz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGx1eWluZyIsImEiOiJjazgycHJ2aWEwb3VkM2VxcTE1dmJ4cHJsIn0.4TzOMB_v_aekafcxXa9-tg',{
             minZoom:0,
             maxZoom:22,
             noWrap: true,
             continuousWorld:false,
         }).addTo(L1_map);
 
-
+        fetch('http://localhost:3001/getLevel1')
+        .then(function(response){
+            response.json()
+            .then(function(data){
+                L.geoJSON(JSON.parse(data[0].st_asgeojson))
+                    .addTo(L1_map)
+            })                
+        })
         //fetch project data and display
 
         fetch('http://localhost:3001/getSquaresL1')
@@ -83,12 +90,21 @@ class Floorplan extends Component {
 
         var L2_map = this.L2_map = new L.map('L2_map').setView([1.34090,103.96315], 20)
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/pluying/ck89vkzaj0h9m1imomwwnlqw3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGx1eWluZyIsImEiOiJjazgycHJ2aWEwb3VkM2VxcTE1dmJ4cHJsIn0.4TzOMB_v_aekafcxXa9-tg',{
+        L.tileLayer('https://api.mapbox.com/styles/v1/pluying/ck99ziy5h0tkt1iqjib8mjkyp/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGx1eWluZyIsImEiOiJjazgycHJ2aWEwb3VkM2VxcTE1dmJ4cHJsIn0.4TzOMB_v_aekafcxXa9-tg',{
             minZoom:0,
             maxZoom:22,
             noWrap: true,
             continuousWorld:false,
         }).addTo(L2_map);
+
+        fetch('http://localhost:3001/getLevel2')
+        .then(function(response){
+            response.json()
+            .then(function(data){
+                L.geoJSON(JSON.parse(data[0].st_asgeojson))
+                    .addTo(L2_map)
+            })                
+        })
 
         fetch('http://localhost:3001/getSquaresL2')
         .then(function(response){
