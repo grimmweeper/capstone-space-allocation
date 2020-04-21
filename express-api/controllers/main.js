@@ -166,8 +166,27 @@ const allocateSquares = async(req, res, db, st) => {
         success = true
       } 
       else {
-        // res.json({test: 'failure'})
-        success = false 
+        //Try change rotation (Horizontal -> Vertical)
+        let count = await db.withSchema('gis').count('a','b').from('squares')
+        .where('project_no', -1)
+        .whereBetween('b', [random_a, random_a + i -1])
+        .whereBetween('a', [random_b, random_b + j -1])
+        .catch(err => res.status(400).json({dbError: 'db error'}))
+  
+        if (parseInt(count[0].count) == i*j){ //update if all values are available
+          
+          await db('squares').withSchema('gis').update({
+            project_no : data[p].id
+          })
+          .whereBetween('b', [random_a, random_a + i -1])
+          .whereBetween('a', [random_b, random_b + j -1])
+          .catch(err => res.status(400).json({dbError: 'db error'}))
+          success = true
+        }
+        else{
+        // res.json({test: 'failure })
+          success = false 
+        }
       }
     }
   }
