@@ -17,9 +17,6 @@ public class AllClicksBeforeLogin {
         Thread.sleep(2000);
 
         // Click on sidebar elements
-        WebElement homeButton = driver.findElement(By.name("homePage"));
-        homeButton.click();
-        Thread.sleep(2000);
 
         WebElement mapButton = driver.findElement(By.name("mapPage"));
         mapButton.click();
@@ -37,9 +34,6 @@ public class AllClicksBeforeLogin {
         clearButton.click();
         Thread.sleep(2000);
 
-        WebElement saveButton = driver.findElement(By.name("savePage"));
-        saveButton.click();
-        Thread.sleep(2000);
 
         WebElement logoutButton = driver.findElement(By.name("logoutPage"));
         logoutButton.click();
