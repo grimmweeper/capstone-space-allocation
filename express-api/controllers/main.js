@@ -293,6 +293,43 @@ const allocateSquares = async(req, res, db, st) => {
   res.json({test: 'success'})
 }
 
+const getLevel1 = (req, res, db, st) => {
+  db.postgisDefineExtras((knex, formatter) => ({  
+    asGeoJSON2(col) { // Not exactly sure why st.asGeoJSON won't build the query right
+      return knex.raw('ST_asGeoJSON(?)', [formatter.wrapWKT(col)]);
+    }
+  }));
+  db.withSchema('gis').select(st.asGeoJSON2('geom'))
+  .from('ccl1')
+  .then(items => {
+    if(items.length){
+      res.json(items)
+    } else {
+      res.json({dataExists: 'false'})
+    }
+  })
+  .catch(err => res.status(400).json({dbError: 'db error'}))
+}
+
+const getLevel2 = (req, res, db, st) => {
+  db.postgisDefineExtras((knex, formatter) => ({  
+    asGeoJSON2(col) { // Not exactly sure why st.asGeoJSON won't build the query right
+      return knex.raw('ST_asGeoJSON(?)', [formatter.wrapWKT(col)]);
+    }
+  }));
+  db.withSchema('gis').select(st.asGeoJSON2('geom'))
+  .from('ccl2')
+  .then(items => {
+    if(items.length){
+      res.json(items)
+    } else {
+      res.json({dataExists: 'false'})
+    }
+  })
+  .catch(err => res.status(400).json({dbError: 'db error'}))
+}
+
+
 
   /*
   //////////////////////////////////////////
@@ -373,6 +410,8 @@ const allocateSquares = async(req, res, db, st) => {
     deleteTableData,
     registerUserData,
     getUserData,
+    getLevel1,
+    getLevel2,
     getSquaresL1,
     getSquaresL2,
     clearSquares,
