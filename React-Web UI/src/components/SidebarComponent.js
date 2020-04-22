@@ -23,8 +23,9 @@ let allocateSquares = () => {
             }
             else {
                 //error alert message
-                alert('GET FAILED');
+                alert('\tAllocation not possible: \n  Only Partial allocation provided');
                 response = [];
+                window.location.reload(false);
             }
         })
         .then(response => {

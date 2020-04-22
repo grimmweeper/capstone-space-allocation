@@ -167,7 +167,7 @@ const allocateSquares = async(req, res, db, st) => {
   for (let p = 0; p < data.length; p++){
     let success = false;
     while (!success){
-
+      if (req.timedout) return
       let i = parseInt(data[p].length/0.5)
       let j = parseInt(data[p].width/0.5)
 
@@ -236,6 +236,7 @@ const allocateSquares = async(req, res, db, st) => {
   for (let p = 0; p < data2.length; p++){
     let success = false;
     while (!success){
+      if (req.timedout) return
 
       let i = parseInt(data2[p].length/0.5)
       let j = parseInt(data2[p].width/0.5)

@@ -8,7 +8,7 @@ const helmet = require('helmet') // creates headers that protect from attacks (s
 const bodyParser = require('body-parser') // turns response into usable format
 const cors = require('cors')  // allows/disallows cross-site communication
 const morgan = require('morgan') // logs requests
-
+const timeout = require('connect-timeout')
 
 
 // db Connection w/ Heroku
@@ -76,7 +76,7 @@ app.delete('/delete', (req, res) => main.deleteTableData(req, res, db))
 app.get('/getSquaresL1', (req, res) => main.getSquaresL1(req, res, db, st))
 app.get('/getSquaresL2', (req, res) => main.getSquaresL2(req, res, db, st))
 app.get('/clearSquares', (req, res) => main.clearSquares(req, res, db))
-app.get('/allocateSquares', (req, res) => main.allocateSquares(req, res, db, st))
+app.get('/allocateSquares', timeout('5s'), (req, res) => main.allocateSquares(req, res, db, st))
 
 app.get('/getLevel1', (req, res) => main.getLevel1(req, res, db, st))
 app.get('/getLevel2', (req, res) => main.getLevel2(req, res, db, st))

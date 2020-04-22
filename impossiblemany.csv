@@ -1,0 +1,221 @@
+id,company,project_name,type_of_prototype,length,width,height,weight,level,number_of_power_points_needed
+1,Attila,Cyber Security,IDK,2,2,0,1,1,2
+7,BCA,Creative and Interactive Communication Platform,IDK,2.5,2.5,3,1,1,2
+10,BCA,Reengineering with Robotics,IDK,3,3,0,1,1,3
+11,Bordeaux,Water Condensation,IDK,3,3,0,1,1,2
+12,Centurion,Traffic Flow and Storage of Bicycles,IDK,2,2,0,1,1,4
+13,Centurion,Smart Mini-Mart,IDK,2,2,0,1,1,2
+14,Citibank,Commercial Banking Relationships,IDK,2,3,0,1,1,2
+15,CPG,Urban Metabolic Hub,IDK,4,2,0,1,1,2
+16,Dassault,Virtual Twin,IDK,2,2,0,1,1,3
+17,DP Architects,Assisted Bathing Solution,IDK,6,8,0,1,1,2
+20,Esplanade,Empowered Patron,IDK,1.5,1.5,2,1,1,3
+21,Flex,Smart Safety Access Auditor,IDK,3,3,1.2,1,1,3
+22,Force 21,Birloki System,IDK,4,2,2.5,1,1,4
+24,Heinz,People Analytics,IDK,2,1,0,1,1,�4
+25,HopeTechnik,Embedded Robotic Officer,IDK,3,5,0,1,1,2
+26,HopeTechnik,Robotic Detector,IDK,2.5,2.5,0,1,1,3
+33,LTA,Cyclist User Alert,IDK,3,3,2.5,1,1,2
+34,LTA,Drain Covers,IDK,2,2,0,1,1,2
+35,Metta School,Interpersonal Space Awareness,IDK,5,3,3,1,1,2
+38,MKPL,Innovative Furniture,IDK,4,4,2,1,1,2
+39,MSD,Personalized Drug Design,IDK,2,2,0,1,1,4
+40,MXHL,Machine Learning Algorithms,IDK,0.6,0.6,0,1,1,2
+41,NUS,Pediatric Surgery Neural Network,IDK,2,2,0,1,1,2
+43,PA,POP-UPHood,IDK,2,2,0,1,1,2
+46,RollsRoyce,Energy Harvesting Wireless Sensor,IDK,2,1,2,1,1,�2
+47,RollsRoyce,Spare Parts Onboard Ships,IDK,3.5,3.5,2,1,1,�2
+49,Sembcorp,Small Weight Delivery,IDK,3,2,0,1,1,�3
+50,SIA,All-Weather Working Shelter,IDK,2.5,2,0,1,1,2
+51,SIA,Premium Passenger Experience,IDK,2.5,1,0,1,1,2
+53,S-Lineage,Breathing Tower,IDK,3,3,0,1,1,2
+54,Sree Narayana,Improving Living Environment,IDK,4,4,0,1,1,2
+55,Sree Narayana,Redesign Residential Facility,IDK,2,2,0,1,1,2
+61,Steelcase,Reduction of Logistics and Packaging Costs,IDK,3,2,1.8,1,1,2
+62,TataComm,App Performance Management,IDK,2,2,2,1,1,2
+63,TataComm,SmartChat,IDK,1,0.5,0,1,1,3
+65,TVConal,Cricket Broadcast,IDK,2,2,0,1,1,2
+68,Weijenberg,Smart Generative Furniture Design,IDK,5,6,0,1,1,2
+69,CGH,Drip Detection Device  May not showcase project,IDK,0.5,0.5,0,1,1,2
+70,CGH,Patient Transfer Device,IDK,4,4,0,1,1,�2
+71,ASTAR,Pediatric Robotic Pet,IDK,2,2,0,1,1,2
+72,ASTAR,Human Behaviour,IDK,2,1.5,0,1,1,2
+E01,NIL,BlackBox,IDK,3,3,0,1,1,2
+E02,NIL,Do-Do,IDK,2,2,1.5,1,1,2
+E03,NIL,FlexiHome,IDK,3.5,3.5,2.6,1,1,2
+F29,inlingua,Management System,IDK,0,0,0,1,1,2
+F37,MITRE,Air Traffic Control,IDK,370,260,200,1,1,2
+S01,2359 Media,Percy,IDK,2,2,0,1,1,3
+S02,DSO,Synthetic Aperture Radar,IDK,10,3,5,1,1,2
+S03,GIC,Skynet,IDK,0,0,0,1,1,2
+S04,NHB,Printing Light,IDK,11.5,7,3,1,1,5
+S05,Performance Rotors,AEOLUS,IDK,3,3,0,1,1,2
+S06,RGA,Mixed Reality Redefines Education,IDK,2,3,0,1,1,�7
+S07,Shado EV,BLDC Design,IDK,5,5,0,1,1,�4
+S08,SMRT,ABTUS,IDK,3,3,3,1,1,2
+S09,Weijenberg,Reinforced Wood Tower,IDK,2,2,0,1,1,2
+73,Attila,Cyber Security,IDK,2,2,0,1,2,2
+74,BCA,Creative and Interactive Communication Platform,IDK,2.5,2.5,3,1,2,2
+75,BCA,Reengineering with Robotics,IDK,3,3,0,1,2,3
+76,Bordeaux,Water Condensation,IDK,3,3,0,1,2,2
+77,Centurion,Traffic Flow and Storage of Bicycles,IDK,2,2,0,1,2,4
+78,Centurion,Smart Mini-Mart,IDK,2,2,0,1,2,2
+79,Citibank,Commercial Banking Relationships,IDK,2,3,0,1,2,2
+80,CPG,Urban Metabolic Hub,IDK,4,2,0,1,2,2
+81,Dassault,Virtual Twin,IDK,2,2,0,1,2,3
+82,DP Architects,Assisted Bathing Solution,IDK,6,8,0,1,2,2
+83,Esplanade,Empowered Patron,IDK,1.5,1.5,2,1,2,3
+84,Flex,Smart Safety Access Auditor,IDK,3,3,1.2,1,2,3
+85,Force 21,Birloki System,IDK,4,2,2.5,1,2,4
+86,Heinz,People Analytics,IDK,2,1,0,1,2,�4
+87,HopeTechnik,Embedded Robotic Officer,IDK,3,5,0,1,2,2
+88,HopeTechnik,Robotic Detector,IDK,2.5,2.5,0,1,2,3
+89,LTA,Cyclist User Alert,IDK,3,3,2.5,1,2,2
+90,LTA,Drain Covers,IDK,2,2,0,1,2,2
+91,Metta School,Interpersonal Space Awareness,IDK,5,3,3,1,2,2
+92,MKPL,Innovative Furniture,IDK,4,4,2,1,2,2
+93,MSD,Personalized Drug Design,IDK,2,2,0,1,2,4
+94,MXHL,Machine Learning Algorithms,IDK,0.6,0.6,0,1,2,2
+95,NUS,Pediatric Surgery Neural Network,IDK,2,2,0,1,2,2
+96,PA,POP-UPHood,IDK,2,2,0,1,2,2
+97,RollsRoyce,Energy Harvesting Wireless Sensor,IDK,2,1,2,1,2,�2
+98,RollsRoyce,Spare Parts Onboard Ships,IDK,3.5,3.5,2,1,2,�2
+99,Sembcorp,Small Weight Delivery,IDK,3,2,0,1,2,�3
+100,SIA,All-Weather Working Shelter,IDK,2.5,2,0,1,2,2
+101,SIA,Premium Passenger Experience,IDK,2.5,1,0,1,2,2
+102,S-Lineage,Breathing Tower,IDK,3,3,0,1,2,2
+103,Sree Narayana,Improving Living Environment,IDK,4,4,0,1,2,2
+104,Sree Narayana,Redesign Residential Facility,IDK,2,2,0,1,2,2
+105,Steelcase,Reduction of Logistics and Packaging Costs,IDK,3,2,1.8,1,2,2
+106,TataComm,App Performance Management,IDK,2,2,2,1,2,2
+107,TataComm,SmartChat,IDK,1,0.5,0,1,2,3
+108,TVConal,Cricket Broadcast,IDK,2,2,0,1,2,2
+109,Weijenberg,Smart Generative Furniture Design,IDK,5,6,0,1,2,2
+110,CGH,Drip Detection Device  May not showcase project,IDK,0.5,0.5,0,1,2,2
+111,CGH,Patient Transfer Device,IDK,4,4,0,1,2,�2
+112,ASTAR,Pediatric Robotic Pet,IDK,2,2,0,1,2,2
+113,ASTAR,Human Behaviour,IDK,2,1.5,0,1,2,2
+114,NIL,BlackBox,IDK,3,3,0,1,2,2
+115,NIL,Do-Do,IDK,2,2,1.5,1,2,2
+116,NIL,FlexiHome,IDK,3.5,3.5,2.6,1,2,2
+117,inlingua,Management System,IDK,0,0,0,1,2,2
+118,MITRE,Air Traffic Control,IDK,370,260,200,1,2,2
+119,2359 Media,Percy,IDK,2,2,0,1,2,3
+120,DSO,Synthetic Aperture Radar,IDK,10,3,5,1,2,2
+121,GIC,Skynet,IDK,0,0,0,1,2,2
+122,NHB,Printing Light,IDK,11.5,7,3,1,2,5
+123,Performance Rotors,AEOLUS,IDK,3,3,0,1,2,2
+124,RGA,Mixed Reality Redefines Education,IDK,2,3,0,1,2,�7
+125,Shado EV,BLDC Design,IDK,5,5,0,1,2,�4
+126,SMRT,ABTUS,IDK,3,3,3,1,2,2
+127,Weijenberg,Reinforced Wood Tower,IDK,2,2,0,1,2,2
+128,Attila,Cyber Security,IDK,2,2,0,1,1,2
+129,BCA,Creative and Interactive Communication Platform,IDK,2.5,2.5,3,1,1,2
+130,BCA,Reengineering with Robotics,IDK,3,3,0,1,1,3
+131,Bordeaux,Water Condensation,IDK,3,3,0,1,1,2
+132,Centurion,Traffic Flow and Storage of Bicycles,IDK,2,2,0,1,1,4
+133,Centurion,Smart Mini-Mart,IDK,2,2,0,1,1,2
+134,Citibank,Commercial Banking Relationships,IDK,2,3,0,1,1,2
+135,CPG,Urban Metabolic Hub,IDK,4,2,0,1,1,2
+136,Dassault,Virtual Twin,IDK,2,2,0,1,1,3
+137,DP Architects,Assisted Bathing Solution,IDK,6,8,0,1,1,2
+138,Esplanade,Empowered Patron,IDK,1.5,1.5,2,1,1,3
+139,Flex,Smart Safety Access Auditor,IDK,3,3,1.2,1,1,3
+140,Force 21,Birloki System,IDK,4,2,2.5,1,1,4
+141,Heinz,People Analytics,IDK,2,1,0,1,1,�4
+142,HopeTechnik,Embedded Robotic Officer,IDK,3,5,0,1,1,2
+143,HopeTechnik,Robotic Detector,IDK,2.5,2.5,0,1,1,3
+144,LTA,Cyclist User Alert,IDK,3,3,2.5,1,1,2
+145,LTA,Drain Covers,IDK,2,2,0,1,1,2
+146,Metta School,Interpersonal Space Awareness,IDK,5,3,3,1,1,2
+147,MKPL,Innovative Furniture,IDK,4,4,2,1,1,2
+148,MSD,Personalized Drug Design,IDK,2,2,0,1,1,4
+149,MXHL,Machine Learning Algorithms,IDK,0.6,0.6,0,1,1,2
+150,NUS,Pediatric Surgery Neural Network,IDK,2,2,0,1,1,2
+151,PA,POP-UPHood,IDK,2,2,0,1,1,2
+152,RollsRoyce,Energy Harvesting Wireless Sensor,IDK,2,1,2,1,1,�2
+153,RollsRoyce,Spare Parts Onboard Ships,IDK,3.5,3.5,2,1,1,�2
+154,Sembcorp,Small Weight Delivery,IDK,3,2,0,1,1,�3
+155,SIA,All-Weather Working Shelter,IDK,2.5,2,0,1,1,2
+156,SIA,Premium Passenger Experience,IDK,2.5,1,0,1,1,2
+157,S-Lineage,Breathing Tower,IDK,3,3,0,1,1,2
+158,Sree Narayana,Improving Living Environment,IDK,4,4,0,1,1,2
+159,Sree Narayana,Redesign Residential Facility,IDK,2,2,0,1,1,2
+160,Steelcase,Reduction of Logistics and Packaging Costs,IDK,3,2,1.8,1,1,2
+161,TataComm,App Performance Management,IDK,2,2,2,1,1,2
+162,TataComm,SmartChat,IDK,1,0.5,0,1,1,3
+163,TVConal,Cricket Broadcast,IDK,2,2,0,1,1,2
+164,Weijenberg,Smart Generative Furniture Design,IDK,5,6,0,1,1,2
+165,CGH,Drip Detection Device  May not showcase project,IDK,0.5,0.5,0,1,1,2
+166,CGH,Patient Transfer Device,IDK,4,4,0,1,1,�2
+167,ASTAR,Pediatric Robotic Pet,IDK,2,2,0,1,1,2
+168,ASTAR,Human Behaviour,IDK,2,1.5,0,1,1,2
+169,NIL,BlackBox,IDK,3,3,0,1,1,2
+170,NIL,Do-Do,IDK,2,2,1.5,1,1,2
+171,NIL,FlexiHome,IDK,3.5,3.5,2.6,1,1,2
+172,inlingua,Management System,IDK,0,0,0,1,1,2
+173,MITRE,Air Traffic Control,IDK,370,260,200,1,1,2
+174,2359 Media,Percy,IDK,2,2,0,1,1,3
+175,DSO,Synthetic Aperture Radar,IDK,10,3,5,1,1,2
+176,GIC,Skynet,IDK,0,0,0,1,1,2
+177,NHB,Printing Light,IDK,11.5,7,3,1,1,5
+178,Performance Rotors,AEOLUS,IDK,3,3,0,1,1,2
+179,RGA,Mixed Reality Redefines Education,IDK,2,3,0,1,1,�7
+180,Shado EV,BLDC Design,IDK,5,5,0,1,1,�4
+181,SMRT,ABTUS,IDK,3,3,3,1,1,2
+182,Weijenberg,Reinforced Wood Tower,IDK,2,2,0,1,1,2
+183,Attila,Cyber Security,IDK,2,2,0,1,2,2
+184,BCA,Creative and Interactive Communication Platform,IDK,2.5,2.5,3,1,2,2
+185,BCA,Reengineering with Robotics,IDK,3,3,0,1,2,3
+186,Bordeaux,Water Condensation,IDK,3,3,0,1,2,2
+187,Centurion,Traffic Flow and Storage of Bicycles,IDK,2,2,0,1,2,4
+188,Centurion,Smart Mini-Mart,IDK,2,2,0,1,2,2
+189,Citibank,Commercial Banking Relationships,IDK,2,3,0,1,2,2
+190,CPG,Urban Metabolic Hub,IDK,4,2,0,1,2,2
+191,Dassault,Virtual Twin,IDK,2,2,0,1,2,3
+192,DP Architects,Assisted Bathing Solution,IDK,6,8,0,1,2,2
+193,Esplanade,Empowered Patron,IDK,1.5,1.5,2,1,2,3
+194,Flex,Smart Safety Access Auditor,IDK,3,3,1.2,1,2,3
+195,Force 21,Birloki System,IDK,4,2,2.5,1,2,4
+196,Heinz,People Analytics,IDK,2,1,0,1,2,�4
+197,HopeTechnik,Embedded Robotic Officer,IDK,3,5,0,1,2,2
+198,HopeTechnik,Robotic Detector,IDK,2.5,2.5,0,1,2,3
+199,LTA,Cyclist User Alert,IDK,3,3,2.5,1,2,2
+200,LTA,Drain Covers,IDK,2,2,0,1,2,2
+201,Metta School,Interpersonal Space Awareness,IDK,5,3,3,1,2,2
+202,MKPL,Innovative Furniture,IDK,4,4,2,1,2,2
+203,MSD,Personalized Drug Design,IDK,2,2,0,1,2,4
+204,MXHL,Machine Learning Algorithms,IDK,0.6,0.6,0,1,2,2
+205,NUS,Pediatric Surgery Neural Network,IDK,2,2,0,1,2,2
+206,PA,POP-UPHood,IDK,2,2,0,1,2,2
+207,RollsRoyce,Energy Harvesting Wireless Sensor,IDK,2,1,2,1,2,�2
+208,RollsRoyce,Spare Parts Onboard Ships,IDK,3.5,3.5,2,1,2,�2
+209,Sembcorp,Small Weight Delivery,IDK,3,2,0,1,2,�3
+210,SIA,All-Weather Working Shelter,IDK,2.5,2,0,1,2,2
+211,SIA,Premium Passenger Experience,IDK,2.5,1,0,1,2,2
+212,S-Lineage,Breathing Tower,IDK,3,3,0,1,2,2
+213,Sree Narayana,Improving Living Environment,IDK,4,4,0,1,2,2
+214,Sree Narayana,Redesign Residential Facility,IDK,2,2,0,1,2,2
+215,Steelcase,Reduction of Logistics and Packaging Costs,IDK,3,2,1.8,1,2,2
+216,TataComm,App Performance Management,IDK,2,2,2,1,2,2
+217,TataComm,SmartChat,IDK,1,0.5,0,1,2,3
+218,TVConal,Cricket Broadcast,IDK,2,2,0,1,2,2
+219,Weijenberg,Smart Generative Furniture Design,IDK,5,6,0,1,2,2
+220,CGH,Drip Detection Device  May not showcase project,IDK,0.5,0.5,0,1,2,2
+221,CGH,Patient Transfer Device,IDK,4,4,0,1,2,�2
+222,ASTAR,Pediatric Robotic Pet,IDK,2,2,0,1,2,2
+223,ASTAR,Human Behaviour,IDK,2,1.5,0,1,2,2
+224,NIL,BlackBox,IDK,3,3,0,1,2,2
+225,NIL,Do-Do,IDK,2,2,1.5,1,2,2
+226,NIL,FlexiHome,IDK,3.5,3.5,2.6,1,2,2
+227,inlingua,Management System,IDK,0,0,0,1,2,2
+228,MITRE,Air Traffic Control,IDK,370,260,200,1,2,2
+229,2359 Media,Percy,IDK,2,2,0,1,2,3
+230,DSO,Synthetic Aperture Radar,IDK,10,3,5,1,2,2
+231,GIC,Skynet,IDK,0,0,0,1,2,2
+232,NHB,Printing Light,IDK,11.5,7,3,1,2,5
+233,Performance Rotors,AEOLUS,IDK,3,3,0,1,2,2
+234,RGA,Mixed Reality Redefines Education,IDK,2,3,0,1,2,�7
+235,Shado EV,BLDC Design,IDK,5,5,0,1,2,�4
+236,SMRT,ABTUS,IDK,3,3,3,1,2,2
+237,Weijenberg,Reinforced Wood Tower,IDK,2,2,0,1,2,2
