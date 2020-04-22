@@ -54,22 +54,22 @@ class Upload extends Component {
         return(
             <div className="container">
                 <div className = "boxdiv">
-                <div className="col-md-6 col-md-offset-3">
-                    <h3>Upload CSV</h3>
-                    <br></br>
-                <CSVReader
-                    cssClass="react-csv-input"
-                    onFileLoaded={this.uploadCSV}
-                    parserOptions={papaparseOptions}
-                    inputStyle={{color: 'black'}}
-                />
-                <br></br>
-                <Row className="form-group">
-                        <Button id = "uploadBtn" type="submit" color="primary" onClick = { this.postCSV }>
-                        Upload
-                        </Button>
-                </Row>
-                </div>
+                    <div className="col-md-6 col-md-offset-3">
+                        <h3>Upload CSV</h3>
+                        <br></br>
+                        <CSVReader
+                            cssClass="react-csv-input"
+                            onFileLoaded={this.uploadCSV}
+                            parserOptions={papaparseOptions}
+                            inputStyle={{color: 'black'}}
+                        />
+                        <br></br>
+                        <Row className="form-group">
+                                <Button id = "uploadBtn" type="submit" color="primary" onClick = { this.postCSV }>
+                                Upload
+                                </Button>
+                        </Row>
+                    </div>
                 </div>
             </div>
         );
