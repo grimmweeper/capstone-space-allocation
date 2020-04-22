@@ -54,6 +54,15 @@ class Floorplan extends Component {
                     .addTo(L1_map)
             })                
         })
+
+        fetch('http://localhost:3001/getLevel2')
+        .then(function(response){
+            response.json()
+            .then(function(data){
+                L.geoJSON(JSON.parse(data[0].st_asgeojson))
+                    .addTo(L2_map)
+            })                
+        })
         //fetch project data and display
 
         fetch('http://localhost:3001/getSquaresL1')
@@ -97,14 +106,7 @@ class Floorplan extends Component {
             continuousWorld:false,
         }).addTo(L2_map);
 
-        fetch('http://localhost:3001/getLevel2')
-        .then(function(response){
-            response.json()
-            .then(function(data){
-                L.geoJSON(JSON.parse(data[0].st_asgeojson))
-                    .addTo(L2_map)
-            })                
-        })
+        
 
         fetch('http://localhost:3001/getSquaresL2')
         .then(function(response){
