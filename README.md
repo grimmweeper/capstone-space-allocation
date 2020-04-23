@@ -1,5 +1,7 @@
 # Capstone Space Allocation 
 
+![Alt text](/screenshots/allocated.png?raw=true "Allocated Map")
+
 This is the project we did as part of our **50.003 Elements of Software Construction** (ESC) course in **SUTD**
 * To improve the workflow for assigning Capstone (project) space for our school's annual Capstone exhibition, we implemented a **Geospatial (GIS)** solution to do space allocation. 
 * This was packaged in a web app, employing features such as login, upload of CSV & display of map with Leaflet. 
