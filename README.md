@@ -43,6 +43,6 @@ npm run dev
 
 * [GrimmWeeper](https://github.com/GrimmWeeper)
 * [Zachary Teo](https://github.com/zackteo)
-* [Li Ying Kwa]
+* [Li Ying Kwa](https://github.com/liying-kwa)
 * [LuyingPang](http://github.com/LuyingPang)
 
